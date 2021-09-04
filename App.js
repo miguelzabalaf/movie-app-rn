@@ -3,17 +3,20 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import useNavigations from './src/navigations';
 import useConfig from './src/config';
+import { Provider } from 'react-redux';
 
 const App = () => {
 
   const { RootNavigation } = useNavigations();
-  const { useInterceptor } = useConfig();
+  const { useInterceptor, store } = useConfig();
 
   useInterceptor();
 
   return (
     <NavigationContainer>
-      <RootNavigation />
+      <Provider store={store}>
+        <RootNavigation />
+      </Provider>
     </NavigationContainer>
   );
 };

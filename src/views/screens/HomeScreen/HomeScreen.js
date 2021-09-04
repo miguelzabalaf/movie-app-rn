@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Text, View } from 'react-native';
 import useApi from '../../../api';
 import useControllers from '../../../controllers';
+import useModels from '../../../models';
 
 const HomeScreen = () => {
 
@@ -14,6 +15,13 @@ const HomeScreen = () => {
   const { useProviders } = useApi();
   const { useMovieProviders } = useProviders();
   const { getMoviesNowPlayingProvider } = useMovieProviders();
+
+  // Models
+  const { useSelectors } = useModels();
+  const { useSelector, useMovieSelectors } = useSelectors();
+  const { moviesNowPlayingSelector } = useMovieSelectors();
+  const moviesNowPlaying = useSelector(moviesNowPlayingSelector);
+
 
   useEffect(() => {
     // getMoviesNowPlayingProvider()
