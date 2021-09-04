@@ -1,8 +1,8 @@
-import useMoviesProviders from "./movies";
+import useMovieProviders from "./movie";
 
 const useProviders = () => {
   return {
-    useMoviesProviders,
+    useMovieProviders,
   };
 };
 
