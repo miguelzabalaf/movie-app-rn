@@ -21,7 +21,7 @@ const useHomeScreen = () => {
   const moviesNowPlaying = useSelector(moviesNowPlayingSelector);
 
   const getMoviesNowPlayingData = () => {
-    // dispatch(actGetMogetMoviesNowPlaying());
+    dispatch(actGetMogetMoviesNowPlaying());
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ const useInterceptor = () => {
 
   const handleRequestSuccess = (request) => {
     request.params['api_key'] = '4b84dfdc42cd3945865882e1beedee43';
-    request.params['language'] = 'es-ES';
+    request.params['language'] = 'en-US';
     request.headers["Content-Type"] = "application/json";
     request.headers["accept"] = "application/json";
     return request;
