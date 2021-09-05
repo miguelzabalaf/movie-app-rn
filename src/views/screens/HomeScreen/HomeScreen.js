@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import useViews from '../..';
 import useControllers from '../../../controllers';
+import useComponents from '../../components';
 
 const HomeScreen = () => {
 
-  // Views
-  const { useComponents } = useViews();
+  // Components
   const { ConsoleData } = useComponents();
 
   // Controllers

@@ -1,24 +1,29 @@
-import useControllers from "../..";
+import { useEffect } from "react";
 import useApi from "../../../api";
 import useModels from "../../../models";
+import useGeneralHooks from "../../generalHooks";
 
 const useHomeScreen = () => {
 
   // Controllers
-  const { useGeneralHooks } = useControllers();
   const { useNavigation } = useGeneralHooks();
   const { navigateTo } = useNavigation();
 
   // API
-  const { useProviders } = useApi();
-  const { useMovieProviders } = useProviders();
-  const { getMoviesNowPlayingProvider } = useMovieProviders();
+  const { useActions } = useApi();
+  const { dispatch, useMovieActions } = useActions();
+  const { actGetMogetMoviesNowPlaying } = useMovieActions();
+
 
   // Models
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
   const { moviesNowPlayingSelector } = useMovieSelectors();
   const moviesNowPlaying = useSelector(moviesNowPlayingSelector);
+
+  useEffect(() => {
+    // dispatch(actGetMogetMoviesNowPlaying(() => console.log('Response Success')));
+  }, []);
 
   // const [resp, setResp] = useState({});
 

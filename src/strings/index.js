@@ -1,6 +1,8 @@
+import useTypes from "./types";
+
 const useStrings = () => {
   return {
-
+    useTypes,
   };
 };
 
