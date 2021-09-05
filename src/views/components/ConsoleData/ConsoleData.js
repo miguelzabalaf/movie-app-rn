@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 100,
     minHeight: 300,
-    position: 'absolute'
   },
   consoleDataHeader: {
     position: 'relative',

@@ -12,25 +12,27 @@ const useHomeScreen = () => {
   // API
   const { useActions } = useApi();
   const { dispatch, useMovieActions } = useActions();
-  const { actGetMogetMoviesNowPlaying } = useMovieActions();
+  const { actGetAllHomeMovieData } = useMovieActions();
 
   // Models
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
-  const { moviesNowPlayingSelector } = useMovieSelectors();
+  const { moviesNowPlayingSelector, popularMoviesSelector } = useMovieSelectors();
   const moviesNowPlaying = useSelector(moviesNowPlayingSelector);
+  const popularMovies = useSelector(popularMoviesSelector);
 
-  const getMoviesNowPlayingData = () => {
-    dispatch(actGetMogetMoviesNowPlaying());
+  const getAllHomeMovieData = () => {
+    dispatch(actGetAllHomeMovieData());
   };
 
   useEffect(() => {
-    getMoviesNowPlayingData();
+    getAllHomeMovieData();
   }, []);
 
   return {
     navigateTo,
-    moviesNowPlaying
+    moviesNowPlaying,
+    popularMovies
   };
 };
 

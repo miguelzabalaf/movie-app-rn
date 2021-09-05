@@ -3,9 +3,10 @@ import useMovieReducers from "./movie";
 
 
 const useReducers = () => {
-  const { moviesNowPlaying } = useMovieReducers();
+  const { moviesNowPlaying, popularMovies } = useMovieReducers();
   return combineReducers({
     moviesNowPlaying,
+    popularMovies,
   });
 };
 

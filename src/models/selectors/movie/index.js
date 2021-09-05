@@ -15,9 +15,21 @@ const useMovieSelectors = () => {
     (moviesNowPlaying) => moviesNowPlaying.movies
   );
 
+  const popularMoviesDataSelector = createSelector(
+    (state) => state.popularMovies,
+    (popularMovies) => popularMovies
+  );
+
+  const popularMoviesSelector = createSelector(
+    (state) => state.popularMovies,
+    (popularMovies) => popularMovies.movies
+  );
+
   return {
+    moviesNowPlayingDataSelector,
     moviesNowPlayingSelector,
-    moviesNowPlayingDataSelector
+    popularMoviesDataSelector,
+    popularMoviesSelector,
   };
 
 };

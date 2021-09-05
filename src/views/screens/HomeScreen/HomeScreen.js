@@ -25,7 +25,11 @@ const HomeScreen = () => {
   // Controllers
   const { useScreenHooks } = useControllers();
   const { useHomeScreen } = useScreenHooks();
-  const { navigateTo, moviesNowPlaying } = useHomeScreen();
+  const {
+    navigateTo,
+    moviesNowPlaying,
+    popularMovies,
+  } = useHomeScreen();
 
   // Loading? :)
   const { promiseInProgress } = usePromiseTracker();
@@ -51,7 +55,7 @@ const HomeScreen = () => {
           </View>
 
           {/* Popular Movies Carousel */}
-          <HorizontalMovieSlider data={moviesNowPlaying} title='Popular Movies' />
+          <HorizontalMovieSlider data={popularMovies} title='Popular Movies' />
         </View>
       </ScrollView>
     );
