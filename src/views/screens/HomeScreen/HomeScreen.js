@@ -1,41 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Text, View } from 'react-native';
-import useApi from '../../../api';
+import useViews from '../..';
 import useControllers from '../../../controllers';
-import useModels from '../../../models';
 
 const HomeScreen = () => {
 
+  // Views
+  const { useComponents } = useViews();
+  const { ConsoleData } = useComponents();
+
   // Controllers
-  const { useGeneralHooks } = useControllers();
-  const { useNavigation } = useGeneralHooks();
-  const { navigateTo } = useNavigation();
-
-  // API
-  const { useProviders } = useApi();
-  const { useMovieProviders } = useProviders();
-  const { getMoviesNowPlayingProvider } = useMovieProviders();
-
-  // Models
-  const { useSelectors } = useModels();
-  const { useSelector, useMovieSelectors } = useSelectors();
-  const { moviesNowPlayingSelector } = useMovieSelectors();
-  const moviesNowPlaying = useSelector(moviesNowPlayingSelector);
-
-
-  useEffect(() => {
-    // getMoviesNowPlayingProvider()
-    //   .then(() => {
-    //     // console.log(JSON.stringify(data.data, null, 4));
-    //     console.log('RESP OK');
-    //   })
-    //   .catch(err => console.error(err));
-  }, []);
+  const { useScreenHooks } = useControllers();
+  const { useHomeScreen } = useScreenHooks();
+  const { navigateTo, moviesNowPlaying } = useHomeScreen();
 
   return (
     <View>
       <Text>Home Screen</Text>
       <Button title='Navigate to Details' onPress={() => navigateTo('DetailMovieScreen')} />
+      <ConsoleData data={moviesNowPlaying} />
     </View>
   );
 };

@@ -1,6 +1,8 @@
+import ConsoleData from "./ConsoleData";
+
 const useComponents = () => {
   return {
-
+    ConsoleData,
   };
 };
 

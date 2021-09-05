@@ -1,13 +1,17 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import useScreens from '../../views/screens';
 import useUtils from '../../utils';
+import useViews from '../../views';
 
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
 
+  // useViews
+  const { useScreens } = useViews();
   const { HomeScreen, DetailMovieScreen } = useScreens();
+
+  // useUtils
   const { useColors } = useUtils();
   const { color } = useColors();
 
