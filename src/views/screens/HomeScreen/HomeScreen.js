@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Button, Text, View, Dimensions, FlatList } from 'react-native';
+import { ActivityIndicator, Button, Text, View, Dimensions, FlatList, ScrollView } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 import useUtils from '../../../utils';
@@ -10,7 +10,13 @@ import Carousel from 'react-native-snap-carousel';
 const HomeScreen = () => {
 
   // Components
-  const { ConsoleData, SpinnerLoader, MoviePoster } = useComponents();
+  const {
+    ConsoleData,
+    SpinnerLoader,
+    MoviePoster,
+    Subtitle,
+    HorizontalMovieSlider,
+  } = useComponents();
 
   // Utils
   const { useColors } = useUtils();
@@ -30,31 +36,24 @@ const HomeScreen = () => {
 
   const HomeScreenComponent = () => {
     return (
-      <View style={{ marginTop: top + 20 }}>
-        {/* Principal Carousel */}
-        <View style={{ height: 440 }}>
-          <Carousel
-            data={moviesNowPlaying}
-            renderItem={({ item }) => <MoviePoster movie={item} />}
-            sliderWidth={width}
-            itemWidth={250}
-          />
-        </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ marginTop: top + 20 }}>
+          {/* Principal Carousel */}
+          <View style={{ height: 440 }}>
+            <Carousel
+              data={moviesNowPlaying}
+              renderItem={({ item }) => <MoviePoster movie={item} />}
+              sliderWidth={width}
+              itemWidth={250}
+              inactiveSlideScale={0.85}
+              inactiveSlideOpacity={0.85}
+            />
+          </View>
 
-        {/* Popular Movies Carousel */}
-        <View style={{ backgroundColor: 'red', height: 250 }}>
-          <Text>Popular Movies</Text>
-          <FlatList
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={moviesNowPlaying}
-            renderItem={(({ item }) => (
-              <MoviePoster movie={item} width={150} height={200} />
-            ))}
-            keyExtractor={(item) => item.id.toString()}
-          />
+          {/* Popular Movies Carousel */}
+          <HorizontalMovieSlider data={moviesNowPlaying} title='Popular Movies' />
         </View>
-      </View>
+      </ScrollView>
     );
   };
 
