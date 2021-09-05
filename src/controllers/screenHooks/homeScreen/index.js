@@ -14,28 +14,19 @@ const useHomeScreen = () => {
   const { dispatch, useMovieActions } = useActions();
   const { actGetMogetMoviesNowPlaying } = useMovieActions();
 
-
   // Models
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
   const { moviesNowPlayingSelector } = useMovieSelectors();
   const moviesNowPlaying = useSelector(moviesNowPlayingSelector);
 
+  const getMoviesNowPlayingData = () => {
+    // dispatch(actGetMogetMoviesNowPlaying());
+  };
+
   useEffect(() => {
-    // dispatch(actGetMogetMoviesNowPlaying(() => console.log('Response Success')));
+    getMoviesNowPlayingData();
   }, []);
-
-  // const [resp, setResp] = useState({});
-
-  // useEffect(() => {
-  //   getMoviesNowPlayingProvider()
-  //     .then((data) => {
-  //       // console.log(JSON.stringify(data.data, null, 4));
-  //       console.log('RESP OK');
-  //       setResp(data);
-  //     })
-  //     .catch(err => console.error(err));
-  // }, []);
 
   return {
     navigateTo,
