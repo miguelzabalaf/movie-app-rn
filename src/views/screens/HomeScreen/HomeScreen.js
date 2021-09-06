@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions, ScrollView, RefreshControl } from 'react-native';
+import { View, Dimensions, ScrollView, RefreshControl, StatusBar } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 import useUtils from '../../../utils';
@@ -48,6 +48,10 @@ const HomeScreen = () => {
           />
         }
       >
+        <StatusBar
+          backgroundColor='#C3C3C3'
+          translucent={true}
+        />
         <View style={{ marginTop: top + 20, paddingBottom: 100 }}>
 
           <View style={{ height: 440 }}>

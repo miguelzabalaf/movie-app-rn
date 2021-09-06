@@ -1,8 +1,10 @@
 import ConsoleData from "./ConsoleData";
 import HorizontalMovieSlider from "./HorizontalMovieSlider";
 import MoviePoster from "./MoviePoster";
+import MoviePosterDetail from "./MoviePosterDetail";
 import SpinnerLoader from "./SpinnerLoader";
 import Subtitle from "./Subtitle";
+
 const useComponents = () => {
   return {
     ConsoleData,
@@ -10,6 +12,7 @@ const useComponents = () => {
     MoviePoster,
     Subtitle,
     HorizontalMovieSlider,
+    MoviePosterDetail,
   };
 };
 
