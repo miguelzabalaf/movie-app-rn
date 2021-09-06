@@ -15,7 +15,7 @@ const useStoreConfig = () => {
   const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    blacklist: []
+    blacklist: ['moviesNowPlaying', 'popularMovies', 'upcomingMovies']
   };
 
   const persistReduce = persistReducer(persistConfig, reducers);

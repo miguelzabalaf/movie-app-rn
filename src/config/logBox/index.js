@@ -2,7 +2,7 @@ import { LogBox } from "react-native";
 
 const useLogBox = () => {
   LogBox.ignoreLogs([
-    'new NativeEventEmitter()',
+    // 'new NativeEventEmitter()',
   ]);
 };
 
