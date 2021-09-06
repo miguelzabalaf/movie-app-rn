@@ -13,7 +13,11 @@ const MoviePoster = ({ movie, width = 250, height = 400 }) => {
 
   return (
     <TouchableOpacity
-      style={{ width, height, marginHorizontal: 7, ...styles.moviePosterContainer }}
+      style={{
+        width,
+        height,
+        ...styles.moviePosterContainer
+      }}
       activeOpacity={0.75}
       onPress={() => navigateAndSetMovieSelected()}
     >
@@ -32,6 +36,11 @@ export default MoviePoster;
 const styles = StyleSheet.create({
   moviePosterContainer: {
     shadowColor: "#000",
+    marginHorizontal: 2,
+    paddingBottom: 20,
+    paddingHorizontal: 5
+  },
+  moviePosterImageContainer: {
     shadowOffset: {
       width: 0,
       height: 5,
@@ -39,14 +48,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.35,
     shadowRadius: 5,
     elevation: 5,
-  },
-  moviePosterImageContainer: {
     flex: 1,
     borderRadius: 18,
   },
   moviePosterImage: {
     backgroundColor: '#C3C3C3',
     flex: 1,
-    borderRadius: 18
+    borderRadius: 18,
   }
 });

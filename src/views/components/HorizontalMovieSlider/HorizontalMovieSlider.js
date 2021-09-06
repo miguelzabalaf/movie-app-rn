@@ -8,7 +8,7 @@ const HorizontalMovieSlider = ({ data, title }) => {
   const renderItem = ({ item }) => <MoviePoster movie={item} width={135} height={200} />;
 
   return (
-    <View style={{ height: title ? 275 : 235 }}>
+    <View style={{ height: title ? 250 : 225 }}>
       {title && <Subtitle text={title} />}
       <FlatList
         horizontal={true}
