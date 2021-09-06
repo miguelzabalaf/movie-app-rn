@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions, ScrollView } from 'react-native';
+import { View, Dimensions, ScrollView, RefreshControl } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 import useUtils from '../../../utils';
@@ -27,6 +27,7 @@ const HomeScreen = () => {
     moviesNowPlaying,
     popularMovies,
     upcomingMovies,
+    getAllHomeMovieData,
   } = useHomeScreen();
 
   // Loading? :)
@@ -38,7 +39,15 @@ const HomeScreen = () => {
 
   const HomeScreenComponent = () => {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={promiseInProgress}
+            onRefresh={getAllHomeMovieData}
+          />
+        }
+      >
         <View style={{ marginTop: top + 20, paddingBottom: 100 }}>
 
           <View style={{ height: 440 }}>

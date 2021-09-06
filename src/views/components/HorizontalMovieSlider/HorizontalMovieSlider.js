@@ -15,7 +15,7 @@ const HorizontalMovieSlider = ({ data, title }) => {
         showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, idx) => item.id.toString() || idx.toString()}
       />
     </View>
   );
