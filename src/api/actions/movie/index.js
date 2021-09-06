@@ -10,6 +10,7 @@ const useMovieActions = () => {
     GET_MOVIES_NOW_PLAYING_DATA,
     GET_POPULAR_MOVIES_DATA,
     GET_UPCOMING_MOVIES_DATA,
+    SET_MOVIE_SELECTED,
   } = useMovieTypes();
 
   // Services
@@ -72,11 +73,19 @@ const useMovieActions = () => {
     }
   };
 
+  const actSetMovieSelected = (movie, onSuccess, onError) => dispatch => {
+    dispatch({
+      type: SET_MOVIE_SELECTED,
+      payload: movie
+    });
+  };
+
   return {
     actGetMogetMoviesNowPlaying,
     actGetPopularMovies,
     actGetUpcomingMovies,
     actGetAllHomeMovieData,
+    actSetMovieSelected,
   };
 };
 

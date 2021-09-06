@@ -6,15 +6,16 @@ const MoviePoster = ({ movie, width = 250, height = 400 }) => {
 
   const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-  const { useGeneralHooks } = useControllers();
-  const { useNavigation } = useGeneralHooks();
-  const { navigateTo } = useNavigation();
+  // Controllers
+  const { useComponentsHooks } = useControllers();
+  const { useMoviePoster } = useComponentsHooks();
+  const { navigateAndSetMovieSelected } = useMoviePoster(movie);
 
   return (
     <TouchableOpacity
       style={{ width, height, marginHorizontal: 7, ...styles.moviePosterContainer }}
       activeOpacity={0.75}
-      onPress={() => navigateTo('DetailMovieScreen', movie)}
+      onPress={() => navigateAndSetMovieSelected()}
     >
       <View style={styles.moviePosterImageContainer}>
         <Image

@@ -12,6 +12,8 @@ const useMovieReducers = () => {
   const {
     GET_MOVIES_NOW_PLAYING_DATA,
     GET_POPULAR_MOVIES_DATA,
+    GET_UPCOMING_MOVIES_DATA,
+    SET_MOVIE_SELECTED,
   } = useMovieTypes();
 
   const moviesNowPlaying = createReducer({
@@ -51,7 +53,7 @@ const useMovieReducers = () => {
     page: null,
     totalPages: null,
   }, {
-    [GET_POPULAR_MOVIES_DATA](state, action) {
+    [GET_UPCOMING_MOVIES_DATA](state, action) {
       const data = action.payload;
       return {
         ...state,
@@ -62,12 +64,38 @@ const useMovieReducers = () => {
     }
   });
 
+  const movieSelected = createReducer({
+    adult: false,
+    backdrop_path: '',
+    genre_ids: [],
+    id: null,
+    original_language: '',
+    original_title: '',
+    overview: '',
+    popularity: null,
+    poster_path: '',
+    release_date: '',
+    title: '',
+    video: false,
+    vote_average: null,
+    vote_count: null
+  }, {
+    [SET_MOVIE_SELECTED](state, action) {
+      const data = action.payload;
+      return {
+        ...state,
+        ...data
+      };
+    }
+  });
+
 
 
   return {
     moviesNowPlaying,
     popularMovies,
     upcomingMovies,
+    movieSelected,
   };
 
 };

@@ -8,12 +8,14 @@ const useReducers = () => {
     moviesNowPlaying,
     popularMovies,
     upcomingMovies,
+    movieSelected,
   } = useMovieReducers();
 
   return combineReducers({
     moviesNowPlaying,
     popularMovies,
     upcomingMovies,
+    movieSelected,
   });
 };
 
