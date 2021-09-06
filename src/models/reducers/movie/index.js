@@ -14,6 +14,7 @@ const useMovieReducers = () => {
     GET_POPULAR_MOVIES_DATA,
     GET_UPCOMING_MOVIES_DATA,
     SET_MOVIE_SELECTED,
+    GET_MOVIE_GENRES,
   } = useMovieTypes();
 
   const moviesNowPlaying = createReducer({
@@ -22,12 +23,12 @@ const useMovieReducers = () => {
     totalPages: null
   }, {
     [GET_MOVIES_NOW_PLAYING_DATA](state, action) {
-      const data = action.payload;
+      const { results, page, total_pages } = action.payload;
       return {
         ...state,
-        movies: data.results,
-        page: data.page,
-        totalPages: data.total_pages
+        movies: results,
+        page,
+        totalPages: total_pages
       };
     }
   });
@@ -38,12 +39,12 @@ const useMovieReducers = () => {
     totalPages: null,
   }, {
     [GET_POPULAR_MOVIES_DATA](state, action) {
-      const data = action.payload;
+      const { results, page, total_pages } = action.payload;
       return {
         ...state,
-        movies: data.results,
-        page: data.page,
-        totalPages: data.total_pages
+        movies: results,
+        page,
+        totalPages: total_pages
       };
     }
   });
@@ -54,12 +55,12 @@ const useMovieReducers = () => {
     totalPages: null,
   }, {
     [GET_UPCOMING_MOVIES_DATA](state, action) {
-      const data = action.payload;
+      const { results, page, total_pages } = action.payload;
       return {
         ...state,
-        movies: data.results,
-        page: data.page,
-        totalPages: data.total_pages
+        movies: results,
+        page: page,
+        totalPages: total_pages
       };
     }
   });
@@ -89,6 +90,18 @@ const useMovieReducers = () => {
     }
   });
 
+  const movieGenres = createReducer({
+    genres: []
+  }, {
+    [GET_MOVIE_GENRES](state, action) {
+      const { genres } = action.payload;
+      return {
+        ...state,
+        genres
+      };
+    }
+  });
+
 
 
   return {
@@ -96,6 +109,7 @@ const useMovieReducers = () => {
     popularMovies,
     upcomingMovies,
     movieSelected,
+    movieGenres,
   };
 
 };

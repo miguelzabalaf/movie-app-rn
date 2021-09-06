@@ -23,10 +23,18 @@ const useMovieProviders = () => {
     });
   };
 
+  const getMovieGenresProvider = () => {
+    return axios({
+      method: 'GET',
+      url: '/genre/movie/list'
+    });
+  };
+
   return {
     getMoviesNowPlayingProvider,
     getPopularMoviesProvider,
     getUpcomingMoviesProvider,
+    getMovieGenresProvider,
   };
 
 };

@@ -26,7 +26,7 @@ const DetailMovieScreen = () => {
           colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']}
           style={styles.moviePosterDetailFooter}>
           <View style={styles.moviePosterDetailTitleContainer}>
-            <Text style={styles.moviePosterDetailTitleText}>{movie.title}</Text>
+            <Text numberOfLines={1} style={styles.moviePosterDetailTitleText}>{movie.title}</Text>
           </View>
         </LinearGradient>
 

@@ -41,6 +41,12 @@ const useMovieSelectors = () => {
     (movieSelected) => movieSelected
   );
 
+  // Movie Genres
+  const movieGenresSelector = createSelector(
+    (state) => state.movieGenres,
+    (movieGenres) => movieGenres.genres
+  );
+
   return {
     moviesNowPlayingDataSelector,
     moviesNowPlayingSelector,
@@ -49,6 +55,7 @@ const useMovieSelectors = () => {
     upcomingMoviesDataSelector,
     upcomingMoviesSelector,
     movieSelectedSelector,
+    movieGenresSelector,
   };
 
 };
