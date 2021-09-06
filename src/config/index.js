@@ -1,10 +1,10 @@
 import useInterceptor from "./interceptor";
-import store from "./redux";
+import useStoreConfig from "./redux";
 
 const useConfig = () => {
   return {
     useInterceptor,
-    store,
+    useStoreConfig
   };
 };
 

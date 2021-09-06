@@ -1,27 +1,46 @@
 import { createStore, applyMiddleware, compose } from "redux";
+import AsyncStorage from '@react-native-community/async-storage';
+import { persistStore, persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import useModels from "../../models";
 
-const { useReducers } = useModels();
+const useStoreConfig = () => {
 
-const reducers = useReducers();
+  const { useReducers } = useModels();
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const reducers = useReducers();
+  const initialState = {};
+  let middlewaresToApply = [thunk];
 
-const middlewaresToApply = [
-  thunk,
-];
+  const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage,
+    blacklist: []
+  };
 
-if (__DEV__) {
-  const createFlipperDebugger = require('redux-flipper').default;
-  middlewaresToApply.push(createFlipperDebugger());
-}
+  const persistReduce = persistReducer(persistConfig, reducers);
 
-const store = createStore(
-  reducers,
-  composeEnhancers(
-    applyMiddleware(...middlewaresToApply)
-  )
-);
+  if (__DEV__) {
+    const createFlipperDebugger = require('redux-flipper').default;
+    const reduxInmmutableStateInvariant = require("redux-immutable-state-invariant").default();
+    middlewaresToApply = [...middlewaresToApply, createFlipperDebugger(), reduxInmmutableStateInvariant];
+  }
 
-export default store;
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+  const store = createStore(
+    persistReduce,
+    initialState,
+    composeEnhancers(
+      applyMiddleware(...middlewaresToApply)
+    )
+  );
+
+  const persistor = persistStore(store);
+
+  return {
+    store, persistor
+  };
+};
+
+export default useStoreConfig;
