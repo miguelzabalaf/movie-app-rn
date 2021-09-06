@@ -9,10 +9,11 @@ import { PersistGate } from "redux-persist/integration/react";
 const App = () => {
 
   const { RootNavigation } = useNavigations();
-  const { useInterceptor, useStoreConfig } = useConfig();
+  const { useInterceptor, useStoreConfig, useLogBox } = useConfig();
   const { store, persistor } = useStoreConfig();
 
   useInterceptor();
+  useLogBox();
 
   return (
     <NavigationContainer>

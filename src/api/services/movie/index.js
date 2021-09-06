@@ -4,7 +4,11 @@ import useProviders from "../../providers";
 const useMovieServices = () => {
 
   const { useMovieProviders } = useProviders();
-  const { getMoviesNowPlayingProvider, getPopularMoviesProvider } = useMovieProviders();
+  const {
+    getMoviesNowPlayingProvider,
+    getPopularMoviesProvider,
+    getUpcomingMoviesProvider,
+  } = useMovieProviders();
 
   const getMoviesNowPlayingService = () => {
     return new Promise(async (resolve, reject) => {
@@ -19,7 +23,17 @@ const useMovieServices = () => {
   const getPopularMoviesService = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        resolve(await getPopularMoviesProvider());
+        resolve(await trackPromise(getPopularMoviesProvider()));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  const getUpcomingMoviesService = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await trackPromise(getUpcomingMoviesProvider()));
       } catch (error) {
         reject(error);
       }
@@ -29,6 +43,7 @@ const useMovieServices = () => {
   return {
     getMoviesNowPlayingService,
     getPopularMoviesService,
+    getUpcomingMoviesService,
   };
 };
 

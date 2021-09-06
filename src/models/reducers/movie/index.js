@@ -38,7 +38,23 @@ const useMovieReducers = () => {
     [GET_POPULAR_MOVIES_DATA](state, action) {
       const data = action.payload;
       return {
-        ...data,
+        ...state,
+        movies: data.results,
+        page: data.page,
+        totalPages: data.total_pages
+      };
+    }
+  });
+
+  const upcomingMovies = createReducer({
+    movies: [],
+    page: null,
+    totalPages: null,
+  }, {
+    [GET_POPULAR_MOVIES_DATA](state, action) {
+      const data = action.payload;
+      return {
+        ...state,
         movies: data.results,
         page: data.page,
         totalPages: data.total_pages
@@ -51,6 +67,7 @@ const useMovieReducers = () => {
   return {
     moviesNowPlaying,
     popularMovies,
+    upcomingMovies,
   };
 
 };

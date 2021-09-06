@@ -16,9 +16,17 @@ const useMovieProviders = () => {
     });
   };
 
+  const getUpcomingMoviesProvider = () => {
+    return axios({
+      method: 'GET',
+      url: '/movie/upcoming'
+    });
+  };
+
   return {
     getMoviesNowPlayingProvider,
-    getPopularMoviesProvider
+    getPopularMoviesProvider,
+    getUpcomingMoviesProvider,
   };
 
 };

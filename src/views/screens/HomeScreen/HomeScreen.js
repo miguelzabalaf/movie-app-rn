@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Button, Text, View, Dimensions, FlatList, ScrollView } from 'react-native';
+import { View, Dimensions, ScrollView } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 import useUtils from '../../../utils';
@@ -11,10 +11,8 @@ const HomeScreen = () => {
 
   // Components
   const {
-    ConsoleData,
     SpinnerLoader,
     MoviePoster,
-    Subtitle,
     HorizontalMovieSlider,
   } = useComponents();
 
@@ -26,9 +24,9 @@ const HomeScreen = () => {
   const { useScreenHooks } = useControllers();
   const { useHomeScreen } = useScreenHooks();
   const {
-    navigateTo,
     moviesNowPlaying,
     popularMovies,
+    upcomingMovies,
   } = useHomeScreen();
 
   // Loading? :)
@@ -41,8 +39,8 @@ const HomeScreen = () => {
   const HomeScreenComponent = () => {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ marginTop: top + 20 }}>
-          {/* Principal Carousel */}
+        <View style={{ marginTop: top + 20, paddingBottom: 100 }}>
+
           <View style={{ height: 440 }}>
             <Carousel
               data={moviesNowPlaying}
@@ -54,8 +52,15 @@ const HomeScreen = () => {
             />
           </View>
 
-          {/* Popular Movies Carousel */}
-          <HorizontalMovieSlider data={popularMovies} title='Popular Movies' />
+          <HorizontalMovieSlider
+            data={upcomingMovies}
+            title='Upcoming Movies'
+          />
+
+          <HorizontalMovieSlider
+            data={popularMovies}
+            title='Popular Movies'
+          />
         </View>
       </ScrollView>
     );
