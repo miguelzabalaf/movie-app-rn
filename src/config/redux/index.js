@@ -8,10 +8,19 @@ const reducers = useReducers();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const middlewaresToApply = [
+  thunk,
+];
+
+if (__DEV__) {
+  const createFlipperDebugger = require('redux-flipper').default;
+  middlewaresToApply.push(createFlipperDebugger());
+}
+
 const store = createStore(
   reducers,
   composeEnhancers(
-    applyMiddleware(thunk)
+    applyMiddleware(...middlewaresToApply)
   )
 );
 
