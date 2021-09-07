@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, StatusBar, ScrollView, View, Text, TouchableOpacity, Platform, Image } from 'react-native';
+import { StyleSheet, StatusBar, ScrollView, View, Text, TouchableOpacity, Platform, Image, FlatList } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 
@@ -12,6 +12,10 @@ const DetailMovieScreen = () => {
     getGenresList,
     getReleaseYear,
     getAverageAndProgress,
+    departaments,
+    departamentSelected,
+    setDepartamentSelected,
+    getCreditFilteredByDepartamentSelected
   } = useDetailMovieScreen();
 
   const { average, progress } = getAverageAndProgress();
@@ -23,6 +27,13 @@ const DetailMovieScreen = () => {
   } = useComponents();
 
   const isIos = () => Platform.OS === 'ios';
+
+  const isDepartamentSelected = (departament) => {
+    return departament === departamentSelected;
+  };
+  const getProfileUrlImg = (item) => {
+    return `https://image.tmdb.org/t/p/w500${item.profile_path}`;
+  };
 
   return (
     <ScrollView>
@@ -40,41 +51,49 @@ const DetailMovieScreen = () => {
       {/* Casting */}
       <View style={styles.CastContainer}>
         <Subtitle text='Cast' />
-        <View style={styles.CastHeaderOptions}>
-          <TouchableOpacity style={{ ...styles.CastHeaderOption, borderRadius: isIos() ? 25 : 5 }}>
-            <Text style={styles.CastHeaderOptionText}>Option</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.CastHeaderOption, borderRadius: isIos() ? 25 : 5 }}>
-            <Text style={styles.CastHeaderOptionText}>Option</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.CastHeaderOption, borderRadius: isIos() ? 25 : 5 }}>
-            <Text style={styles.CastHeaderOptionText}>Option</Text>
-          </TouchableOpacity>
-        </View>
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={styles.CastHeaderOptions}
+          data={departaments}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => setDepartamentSelected(item)}
+              style={{
+                ...styles[isDepartamentSelected(item) ? 'CastHeaderOptionSelected' : 'CastHeaderOption'],
+                borderRadius: isIos() ? 25 : 5
+              }}>
+              <Text
+                style={
+                  styles[isDepartamentSelected(item) ? 'CastHeaderOptionTextSelected' : 'CastHeaderOptionText']
+                }
+              >{item}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, idx) => `${item}${idx}`}
+        >
+        </FlatList>
 
-        <View style={styles.CastProfilesContainer}>
-          <View style={styles.CastProfile}>
-            <Image style={{ width: 100, height: 100, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }} />
-            <Text numberOfLines={1} style={styles.CastProfileTitle}>Miguel Zabala Figueroa</Text>
-            <Text numberOfLines={1} style={styles.CastProfileSubtitle}>Spider-Man</Text>
-          </View>
-          <View style={styles.CastProfile}>
-            <Image style={{ width: 100, height: 100, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }} />
-            <Text numberOfLines={1} style={styles.CastProfileTitle}>Miguel Zabala Figueroa</Text>
-            <Text numberOfLines={1} style={styles.CastProfileSubtitle}>Spider-Man</Text>
-          </View>
-          <View style={styles.CastProfile}>
-            <Image style={{ width: 100, height: 100, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }} />
-            <Text numberOfLines={1} style={styles.CastProfileTitle}>Miguel Zabala Figueroa</Text>
-            <Text numberOfLines={1} style={styles.CastProfileSubtitle}>Spider-Man</Text>
-          </View>
-          <View style={styles.CastProfile}>
-            <Image style={{ width: 100, height: 100, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }} />
-            <Text numberOfLines={1} style={styles.CastProfileTitle}>Miguel Zabala Figueroa</Text>
-            <Text numberOfLines={1} style={styles.CastProfileSubtitle}>Spider-Man</Text>
-          </View>
-
-        </View>
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={styles.CastProfilesContainer}
+          data={getCreditFilteredByDepartamentSelected()}
+          renderItem={({ item }) => (
+            <View style={styles.CastProfile}>
+              <Image
+                style={{ width: 100, height: 100, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }}
+                source={{
+                  uri: getProfileUrlImg(item)
+                }}
+              />
+              <Text numberOfLines={1} style={styles.CastProfileTitle}>{item.original_name}</Text>
+              <Text numberOfLines={1} style={styles.CastProfileSubtitle}>{item.character}</Text>
+            </View>
+          )}
+          key={(item) => item.id.toString()}
+        >
+        </FlatList>
       </View>
       {/* Casting */}
     </ScrollView>
@@ -102,8 +121,21 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginLeft: 16
   },
+  CastHeaderOptionSelected: {
+    borderWidth: 1,
+    borderColor: '#FF3E3E',
+    backgroundColor: '#FF3E3E',
+    borderRadius: 50,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginLeft: 16
+  },
   CastHeaderOptionText: {
     color: '#666',
+  },
+  CastHeaderOptionTextSelected: {
+    color: '#FFF',
   },
   CastProfilesContainer: {
     // borderColor: 'red',

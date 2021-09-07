@@ -127,7 +127,7 @@ const useMovieReducers = () => {
   const movieSelectedCredits = createReducer({
     credits: []
   }, {
-    [GET_MOVIE_GENRES](state, action) {
+    [GET_MOVIE_CREDITS](state, action) {
       const { cast } = action.payload;
       return {
         ...state,

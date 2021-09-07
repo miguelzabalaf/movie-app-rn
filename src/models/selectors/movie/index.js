@@ -50,7 +50,16 @@ const useMovieSelectors = () => {
   // Movie Genres
   const movieCreditsSelector = createSelector(
     (state) => state.movieSelectedCredits,
-    (movieSelectedCredits) => movieSelectedCredits.credits
+    (movieSelectedCredits) => {
+      const credits = movieSelectedCredits.credits;
+      const departaments = credits.reduce((allDepartaments, credit) => {
+        return Array.from(new Set([...allDepartaments, credit.known_for_department]));
+      }, []);
+      return {
+        credits,
+        departaments
+      };
+    }
   );
 
   return {
