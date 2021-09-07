@@ -8,7 +8,7 @@ const MoviePosterDetail = ({ genres, movie }) => {
 
   const { height } = Dimensions.get('window');
 
-  const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const posterUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
 
   const { useGeneralHooks } = useControllers();
   const { useNavigation } = useGeneralHooks();
@@ -17,13 +17,13 @@ const MoviePosterDetail = ({ genres, movie }) => {
   const isIos = () => Platform.OS === 'ios';
 
   const genreItem = ({ item }) => (
-    <View style={{ borderRadius: isIos ? 15 : 5, ...styles.moviePosterDetailGenresContainer, }}>
+    <View style={{ borderRadius: isIos() ? 15 : 5, ...styles.moviePosterDetailGenresContainer, }}>
       <Text style={styles.moviePosterDetailGenresText}>{item.name}</Text>
     </View>
   );
 
   return (
-    <View style={{ height: height * 0.5, ...styles.moviePosterDetailContainer }}>
+    <View style={{ height: height * 0.3, ...styles.moviePosterDetailContainer }}>
       <Image
         style={styles.moviePosterDetailImage}
         source={{
@@ -31,7 +31,7 @@ const MoviePosterDetail = ({ genres, movie }) => {
         }}
       />
       <LinearGradient
-        colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']}
+        colors={['rgba(0, 0, 0, 0.1)', 'rgba(17, 17, 17, 1)']}
         style={styles.moviePosterDetailFooter}>
         <View style={styles.moviePosterDetailTitleContainer}>
           <Text numberOfLines={1} style={styles.moviePosterDetailTitleText}>{movie.title}</Text>
@@ -47,17 +47,21 @@ const MoviePosterDetail = ({ genres, movie }) => {
       </LinearGradient>
       <View style={styles.moviePosterDetailHeader}>
         <TouchableOpacity
+          activeOpacity={0.5}
           onPress={() => goBack()}
-          style={styles.moviePosterDetailHeaderButton}>
+          style={styles.moviePosterDetailHeaderButton}
+        >
           <Icon
-            name={isIos ? 'chevron-back-outline' : 'arrow-back-outline'}
-            size={30}
+            name={isIos() ? 'chevron-back-outline' : 'arrow-back-outline'}
+            size={25}
             color='#FFF'
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.moviePosterDetailHeaderButton}>
-          <Icon name={'heart-outline'} size={30} color='#FFF' />
+          activeOpacity={0.5}
+          style={styles.moviePosterDetailHeaderButton}
+          onPress={() => alert('Hola')}>
+          <Icon name={'heart-outline'} size={25} color='#FFF' />
         </TouchableOpacity>
       </View>
     </View>

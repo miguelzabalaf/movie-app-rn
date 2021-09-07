@@ -49,12 +49,12 @@ const HomeScreen = () => {
         }
       >
         <StatusBar
-          backgroundColor='#C3C3C3'
+          backgroundColor={color.background}
           translucent={true}
         />
         <View style={{ marginTop: top + 20, paddingBottom: 100 }}>
 
-          <View style={{ height: 440 }}>
+          <View style={{ height: 400, }}>
             <Carousel
               data={moviesNowPlaying}
               renderItem={({ item }) => <MoviePoster movie={item} />}

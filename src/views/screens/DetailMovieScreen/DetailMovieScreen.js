@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, ScrollView } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 
@@ -12,10 +12,10 @@ const DetailMovieScreen = () => {
   const { MoviePosterDetail } = useComponents();
 
   return (
-    <View>
+    <ScrollView>
       <StatusBar backgroundColor='transparent' translucent={true} />
       <MoviePosterDetail genres={getGenresList()} movie={movie} />
-    </View>
+    </ScrollView>
   );
 };
 
