@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import useUtils from '../../../utils';
 
 const Subtitle = ({ text }) => {
+
+  const { useColors } = useUtils();
+  const { color } = useColors();
+
   return (
-    <View style={styles.subtitleContainer}>
-      <Text style={styles.subtitleText}>{text}</Text>
+    <View accessible={true} style={{ ...styles.subtitleContainer }}>
+      <Text style={{ ...styles.subtitleText, color: 'white' }}>{text}</Text>
     </View>
   );
 };
@@ -16,7 +21,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   subtitleText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   }
 });
