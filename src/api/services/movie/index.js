@@ -9,6 +9,7 @@ const useMovieServices = () => {
     getPopularMoviesProvider,
     getUpcomingMoviesProvider,
     getMovieGenresProvider,
+    getMovieCreditsProvider,
   } = useMovieProviders();
 
   const getMoviesNowPlayingService = () => {
@@ -51,11 +52,22 @@ const useMovieServices = () => {
     });
   };
 
+  const getMovieCreditsService = (movieId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await getMovieCreditsProvider(movieId));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     getMoviesNowPlayingService,
     getPopularMoviesService,
     getUpcomingMoviesService,
     getMovieGenresService,
+    getMovieCreditsService,
   };
 };
 

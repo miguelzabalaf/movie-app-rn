@@ -30,11 +30,19 @@ const useMovieProviders = () => {
     });
   };
 
+  const getMovieCreditsProvider = (movieId) => {
+    return axios({
+      method: 'GET',
+      url: `/movie/${movieId}/credits`
+    });
+  };
+
   return {
     getMoviesNowPlayingProvider,
     getPopularMoviesProvider,
     getUpcomingMoviesProvider,
     getMovieGenresProvider,
+    getMovieCreditsProvider,
   };
 
 };

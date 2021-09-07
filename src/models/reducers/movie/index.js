@@ -14,7 +14,10 @@ const useMovieReducers = () => {
     GET_POPULAR_MOVIES_DATA,
     GET_UPCOMING_MOVIES_DATA,
     SET_MOVIE_SELECTED,
+    REMOVE_MOVIE_SELECTED,
     GET_MOVIE_GENRES,
+    GET_MOVIE_CREDITS,
+    REMOVE_MOVIE_CREDITS,
   } = useMovieTypes();
 
   const moviesNowPlaying = createReducer({
@@ -87,6 +90,25 @@ const useMovieReducers = () => {
         ...state,
         ...data
       };
+    },
+    [REMOVE_MOVIE_SELECTED](state) {
+      return {
+        ...state,
+        adult: false,
+        backdrop_path: '',
+        genre_ids: [],
+        id: null,
+        original_language: '',
+        original_title: '',
+        overview: '',
+        popularity: null,
+        poster_path: '',
+        release_date: '',
+        title: '',
+        video: false,
+        vote_average: null,
+        vote_count: null
+      };
     }
   });
 
@@ -102,6 +124,24 @@ const useMovieReducers = () => {
     }
   });
 
+  const movieSelectedCredits = createReducer({
+    credits: []
+  }, {
+    [GET_MOVIE_GENRES](state, action) {
+      const { cast } = action.payload;
+      return {
+        ...state,
+        credits: cast
+      };
+    },
+    [REMOVE_MOVIE_CREDITS](state) {
+      return {
+        ...state,
+        credits: []
+      };
+    }
+  });
+
 
 
   return {
@@ -110,6 +150,7 @@ const useMovieReducers = () => {
     upcomingMovies,
     movieSelected,
     movieGenres,
+    movieSelectedCredits,
   };
 
 };
