@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   overviewContainer: {
     paddingHorizontal: 16,
     flexDirection: 'row',
+    marginBottom: 16
   },
   overviewTextContainer: {
     flex: 1,
