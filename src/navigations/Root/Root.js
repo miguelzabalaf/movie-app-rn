@@ -21,7 +21,7 @@ const RootNavigation = () => {
         headerShown: false,
         cardStyle: {
           backgroundColor: color.white
-        }
+        },
       }}
     >
       <Root.Screen name="HomeScreen" component={HomeScreen} />

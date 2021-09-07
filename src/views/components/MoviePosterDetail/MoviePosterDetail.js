@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, FlatList, Image, TouchableOpacity, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/Ionicons';
+import useControllers from '../../../controllers';
 
 const MoviePosterDetail = ({ genres, movie }) => {
 
@@ -8,8 +10,14 @@ const MoviePosterDetail = ({ genres, movie }) => {
 
   const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
+  const { useGeneralHooks } = useControllers();
+  const { useNavigation } = useGeneralHooks();
+  const { goBack } = useNavigation();
+
+  const isIos = () => Platform.OS === 'ios';
+
   const genreItem = ({ item }) => (
-    <View style={styles.moviePosterDetailGenresContainer}>
+    <View style={{ borderRadius: isIos ? 15 : 5, ...styles.moviePosterDetailGenresContainer, }}>
       <Text style={styles.moviePosterDetailGenresText}>{item.name}</Text>
     </View>
   );
@@ -37,7 +45,21 @@ const MoviePosterDetail = ({ genres, movie }) => {
           />
         </View>
       </LinearGradient>
-
+      <View style={styles.moviePosterDetailHeader}>
+        <TouchableOpacity
+          onPress={() => goBack()}
+          style={styles.moviePosterDetailHeaderButton}>
+          <Icon
+            name={isIos ? 'chevron-back-outline' : 'arrow-back-outline'}
+            size={30}
+            color='#FFF'
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.moviePosterDetailHeaderButton}>
+          <Icon name={'heart-outline'} size={30} color='#FFF' />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -85,10 +107,30 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     marginRight: 10,
     justifyContent: 'center',
-    borderRadius: 5,
   },
   moviePosterDetailGenresText: {
     color: '#AFAFAF',
     fontSize: 10
+  },
+  moviePosterDetailHeader: {
+    position: 'absolute',
+    zIndex: 2,
+    right: 0,
+    left: 0,
+    top: 30,
+    height: 75,
+    paddingHorizontal: 16,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  moviePosterDetailHeaderButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 3
   }
 });

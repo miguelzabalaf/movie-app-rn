@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, FlatList, Image, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
 
