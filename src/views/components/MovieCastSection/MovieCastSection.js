@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, Platform, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, Platform, StyleSheet, TouchableOpacity, FlatList, Image, Animated } from 'react-native';
 import useControllers from '../../../controllers';
 import Subtitle from '../Subtitle';
+import _ from 'lodash';
+import { usePromiseTracker } from 'react-promise-tracker';
+
 
 const MovieCastSection = () => {
 
@@ -18,7 +21,10 @@ const MovieCastSection = () => {
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
-  } = useMovieCastSection();
+    fadeInRef,
+  } = useMovieCastSection(promiseInProgress);
+
+  const { promiseInProgress } = usePromiseTracker();
 
   const RenderOptionCastHeader = ({ item }) => {
     return (
@@ -42,31 +48,58 @@ const MovieCastSection = () => {
     );
   };
 
-  return (
-    <View style={styles.CastContainer}>
-      <Subtitle text='Cast' />
-      <FlatList
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={styles.CastHeaderOptions}
-        data={departaments}
-        renderItem={({ item }) => <RenderOptionCastHeader item={item} />}
-        keyExtractor={(item, idx) => `${item}${idx}`}
-      >
-      </FlatList>
+  const LoadingCastSection = () => {
+    return (
+      <View>
+        <Subtitle text='Cast' />
+        <View style={styles.CastLoadingHeader}>
+          {_.map([1, 2, 3], (idx) => <View key={idx.toString()} style={{ ...styles.CastLoadingHeaderOption, borderRadius: isIos() ? 50 : 5 }}></View>)}
+        </View>
+        <View style={styles.CastLoadingProfilesContainer}>
+          {_.map([1, 2, 3], (idx) => (
+            <View key={idx.toString()} style={styles.CastLoadingProfile}>
+              <View style={styles.CastLoadingProfileImage}></View>
+              <View style={styles.CastLoadingProfileTitle}></View>
+              <View style={styles.CastLoadingProfileSubtitle}></View>
+            </View>
+          ))}
+        </View>
+      </View>
+    );
+  };
 
-      <FlatList
-        ref={castListRef}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={styles.CastProfilesContainer}
-        data={getCreditFilteredByDepartamentSelected()}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <RenderProfile item={item} />}
-      >
-      </FlatList>
-    </View>
-  );
+  const CastSectionComponent = () => {
+    return (
+      <Animated.View style={{ ...styles.CastContainer, opacity: fadeInRef }}>
+        <Subtitle text='Cast' />
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={styles.CastHeaderOptions}
+          data={departaments}
+          renderItem={({ item }) => <RenderOptionCastHeader item={item} />}
+          keyExtractor={(item, idx) => `${item}${idx}`}
+        >
+        </FlatList>
+
+        <FlatList
+          ref={castListRef}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={styles.CastProfilesContainer}
+          data={getCreditFilteredByDepartamentSelected()}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <RenderProfile item={item} />}
+        >
+        </FlatList>
+      </Animated.View>
+    );
+  };
+
+  return promiseInProgress
+    ? <LoadingCastSection />
+    : <CastSectionComponent />;
+
 };
 
 export default MovieCastSection;
@@ -127,5 +160,48 @@ const styles = StyleSheet.create({
   CastProfileSubtitle: {
     color: '#666',
     fontSize: 12
+  },
+  CastLoadingHeader: {
+    flexDirection: 'row'
+  },
+  CastLoadingHeaderOption: {
+    borderWidth: 1,
+    borderColor: '#666',
+    borderRadius: 50,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 35,
+    paddingVertical: 15,
+    marginLeft: 16
+  },
+  CastLoadingProfilesContainer: {
+    paddingVertical: 16,
+    flexDirection: 'row',
+  },
+  CastLoadingProfile: {
+    width: 100,
+    height: 150,
+    marginLeft: 16,
+    alignItems: 'center'
+  },
+  CastLoadingProfileImage: {
+    width: 75,
+    height: 75,
+    backgroundColor: '#333',
+    borderRadius: 50,
+    marginBottom: 8,
+  },
+  CastLoadingProfileTitle: {
+    backgroundColor: '#333',
+    marginBottom: 2,
+    width: 65,
+    height: 5,
+    borderRadius: 5,
+  },
+  CastLoadingProfileSubtitle: {
+    backgroundColor: '#222',
+    marginTop: 5,
+    width: 45,
+    height: 5,
+    borderRadius: 5,
   },
 });

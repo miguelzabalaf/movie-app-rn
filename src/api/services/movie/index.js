@@ -55,7 +55,7 @@ const useMovieServices = () => {
   const getMovieCreditsService = (movieId) => {
     return new Promise(async (resolve, reject) => {
       try {
-        resolve(await getMovieCreditsProvider(movieId));
+        resolve(await trackPromise(getMovieCreditsProvider(movieId)));
       } catch (error) {
         reject(error);
       }
