@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform, StyleSheet, TouchableOpacity, FlatList, Image, Animated } from 'react-native';
+import { View, Text, Platform, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import useControllers from '../../../controllers';
 import Subtitle from '../Subtitle';
 import _ from 'lodash';
@@ -17,12 +17,10 @@ const MovieCastSection = () => {
     departaments,
     getProfileUrlImg,
     getCreditFilteredByDepartamentSelected,
-    castListRef,
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
-    fadeInRef,
-  } = useMovieCastSection(promiseInProgress);
+  } = useMovieCastSection();
 
   const { promiseInProgress } = usePromiseTracker();
 
@@ -41,7 +39,7 @@ const MovieCastSection = () => {
       <TouchableOpacity
         activeOpacity={0.5}
         style={styles.CastProfile}>
-        <Image style={styles.CastProfileImage} source={{ uri: getProfileUrlImg(item) }} />
+        <Image style={{ ...styles.CastProfileImage, borderRadius: isIos() ? 20 : 50 }} source={{ uri: getProfileUrlImg(item) }} />
         <Text numberOfLines={1} style={styles.CastProfileTitle}>{item.original_name}</Text>
         <Text numberOfLines={1} style={styles.CastProfileSubtitle}>{item.character}</Text>
       </TouchableOpacity>
@@ -70,7 +68,7 @@ const MovieCastSection = () => {
 
   const CastSectionComponent = () => {
     return (
-      <Animated.View style={{ ...styles.CastContainer, opacity: fadeInRef }}>
+      <View style={styles.CastContainer}>
         <Subtitle text='Cast' />
         <FlatList
           horizontal={true}
@@ -83,7 +81,6 @@ const MovieCastSection = () => {
         </FlatList>
 
         <FlatList
-          ref={castListRef}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.CastProfilesContainer}
@@ -92,7 +89,7 @@ const MovieCastSection = () => {
           renderItem={({ item }) => <RenderProfile item={item} />}
         >
         </FlatList>
-      </Animated.View>
+      </View>
     );
   };
 

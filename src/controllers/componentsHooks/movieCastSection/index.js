@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import useModels from "../../../models";
 import _ from 'lodash';
 
@@ -10,8 +10,6 @@ const useMovieCastSection = () => {
   const { departaments, credits } = useSelector(movieCreditsSelector);
 
   const [departamentSelected, setDepartamentSelected] = useState(departaments[0]);
-
-  const castListRef = useRef();
 
   useEffect(() => {
     setInitialDepartamentCastSelected();
@@ -33,7 +31,6 @@ const useMovieCastSection = () => {
 
   const handleSetNewDepartamentSelected = (item) => {
     setDepartamentSelected(item);
-    castListRef.current.scrollToOffset({ animated: true, offset: 0 });
   };
 
   const setStylesFromDepartamentOptions = (styles, item, isIos) => {
@@ -58,7 +55,6 @@ const useMovieCastSection = () => {
     departaments,
     getProfileUrlImg,
     getCreditFilteredByDepartamentSelected,
-    castListRef,
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
