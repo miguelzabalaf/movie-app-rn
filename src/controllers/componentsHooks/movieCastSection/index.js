@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useModels from "../../../models";
 import _ from 'lodash';
+import useApi from "../../../api";
 
 const useMovieCastSection = () => {
 
@@ -8,6 +9,10 @@ const useMovieCastSection = () => {
   const { useSelector, useMovieSelectors } = useSelectors();
   const { movieCreditsSelector } = useMovieSelectors();
   const { departaments, credits } = useSelector(movieCreditsSelector);
+
+  const { useActions } = useApi();
+  const { dispatch, useMovieActions } = useActions();
+  const { actGetInfoPerson } = useMovieActions();
 
   const [departamentSelected, setDepartamentSelected] = useState(departaments[0]);
 
@@ -31,6 +36,10 @@ const useMovieCastSection = () => {
 
   const handleSetNewDepartamentSelected = (item) => {
     setDepartamentSelected(item);
+  };
+
+  const handleGetInfoPerson = (person) => {
+    dispatch(actGetInfoPerson(person.id));
   };
 
   const setStylesFromDepartamentOptions = (styles, item, isIos) => {
@@ -58,6 +67,7 @@ const useMovieCastSection = () => {
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
+    handleGetInfoPerson,
   };
 };
 

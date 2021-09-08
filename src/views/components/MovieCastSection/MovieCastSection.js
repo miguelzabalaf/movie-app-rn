@@ -20,6 +20,7 @@ const MovieCastSection = () => {
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
+    handleGetInfoPerson,
   } = useMovieCastSection();
 
   const { promiseInProgress } = usePromiseTracker();
@@ -38,7 +39,8 @@ const MovieCastSection = () => {
     return (
       <TouchableOpacity
         activeOpacity={0.5}
-        style={styles.CastProfile}>
+        style={styles.CastProfile}
+        onPress={() => handleGetInfoPerson(item)}>
         <Image style={{ ...styles.CastProfileImage, borderRadius: isIos() ? 20 : 50 }} source={{ uri: getProfileUrlImg(item) }} />
         <Text numberOfLines={1} style={styles.CastProfileTitle}>{item.original_name}</Text>
         <Text numberOfLines={1} style={styles.CastProfileSubtitle}>{item.character}</Text>

@@ -66,7 +66,7 @@ const useMovieServices = () => {
   const getPersonInfoService = (personId) => {
     return new Promise(async (resolve, reject) => {
       try {
-        resolve(await trackPromise(getInfoPersonProvider(personId)));
+        resolve(await getInfoPersonProvider(personId));
       } catch (error) {
         reject(error);
       }
