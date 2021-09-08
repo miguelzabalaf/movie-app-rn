@@ -2,17 +2,12 @@ import React from 'react';
 import { View, Text, Dimensions, StyleSheet, FlatList, Image, TouchableOpacity, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import useControllers from '../../../controllers';
 
-const MoviePosterDetail = ({ genres, movie }) => {
+const MoviePosterDetail = ({ genres, movie, goBack }) => {
 
   const { height } = Dimensions.get('window');
 
   const posterUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
-
-  const { useGeneralHooks } = useControllers();
-  const { useNavigation } = useGeneralHooks();
-  const { goBack } = useNavigation();
 
   const isIos = () => Platform.OS === 'ios';
 

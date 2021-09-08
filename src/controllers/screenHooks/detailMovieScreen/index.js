@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useModels from "../../../models";
 import _ from 'lodash';
 import useApi from "../../../api";
+import useControllers from "../..";
 
 const useDetailMovieScreen = () => {
 
@@ -14,14 +15,24 @@ const useDetailMovieScreen = () => {
 
   const { useActions } = useApi();
   const { dispatch, useMovieActions } = useActions();
-  const { actGetMovieCredits } = useMovieActions();
+  const { actGetMovieCredits, actRemoveMovieCredits } = useMovieActions();
+
+  const { useGeneralHooks } = useControllers();
+  const { useNavigation } = useGeneralHooks();
+  const { goBack } = useNavigation();
 
   const [departamentSelected, setDepartamentSelected] = useState(departaments[0]);
-
 
   useEffect(() => {
     dispatch(actGetMovieCredits(movie.id));
   }, []);
+
+
+  useEffect(() => {
+    setInitialDepartamentCastSelected();
+  }, [credits]);
+
+  const setInitialDepartamentCastSelected = () => setDepartamentSelected(departaments[0]);
 
   const getGenresList = () => {
     return _.filter(genres, (genre) => movie.genre_ids.includes(genre.id));
@@ -45,6 +56,11 @@ const useDetailMovieScreen = () => {
     return _.filter(credits, (credit) => credit.known_for_department === departamentSelected);
   };
 
+  const goToHomeScreen = () => {
+    goBack();
+    dispatch(actRemoveMovieCredits());
+  };
+
   return {
     movie,
     getGenresList,
@@ -54,6 +70,7 @@ const useDetailMovieScreen = () => {
     departamentSelected,
     setDepartamentSelected,
     getCreditFilteredByDepartamentSelected,
+    goToHomeScreen,
   };
 };
 

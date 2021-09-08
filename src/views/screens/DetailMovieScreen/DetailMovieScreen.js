@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StyleSheet, StatusBar, ScrollView, View, Text, TouchableOpacity, Platform, Image, FlatList } from 'react-native';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
@@ -15,7 +15,8 @@ const DetailMovieScreen = () => {
     departaments,
     departamentSelected,
     setDepartamentSelected,
-    getCreditFilteredByDepartamentSelected
+    getCreditFilteredByDepartamentSelected,
+    goToHomeScreen,
   } = useDetailMovieScreen();
 
   const { average, progress } = getAverageAndProgress();
@@ -35,12 +36,15 @@ const DetailMovieScreen = () => {
     return `https://image.tmdb.org/t/p/w500${item.profile_path}`;
   };
 
+  const castListRef = React.useRef();
+
   return (
     <ScrollView>
       <StatusBar backgroundColor='transparent' translucent={true} />
       <MoviePosterDetail
         genres={getGenresList()}
         movie={movie}
+        goBack={goToHomeScreen}
       />
       <MovieOverviewDetail
         overview={movie.overview}
@@ -58,7 +62,10 @@ const DetailMovieScreen = () => {
           data={departaments}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => setDepartamentSelected(item)}
+              onPress={() => {
+                setDepartamentSelected(item);
+                castListRef.current.scrollToOffset({ animated: true, offset: 0 });
+              }}
               style={{
                 ...styles[isDepartamentSelected(item) ? 'CastHeaderOptionSelected' : 'CastHeaderOption'],
                 borderRadius: isIos() ? 25 : 5
@@ -75,21 +82,24 @@ const DetailMovieScreen = () => {
         </FlatList>
 
         <FlatList
+          ref={castListRef}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.CastProfilesContainer}
           data={getCreditFilteredByDepartamentSelected()}
           renderItem={({ item }) => (
-            <View style={styles.CastProfile}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={styles.CastProfile}>
               <Image
-                style={{ width: 100, height: 100, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }}
+                style={{ width: 75, height: 75, backgroundColor: '#333', borderRadius: 50, marginBottom: 8 }}
                 source={{
                   uri: getProfileUrlImg(item)
                 }}
               />
               <Text numberOfLines={1} style={styles.CastProfileTitle}>{item.original_name}</Text>
               <Text numberOfLines={1} style={styles.CastProfileSubtitle}>{item.character}</Text>
-            </View>
+            </TouchableOpacity>
           )}
           key={(item) => item.id.toString()}
         >

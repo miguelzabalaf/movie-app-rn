@@ -92,7 +92,7 @@ const useMovieActions = () => {
     }
   };
 
-  const actRemoveMovieSelected = (onSuccess, onError) => {
+  const actRemoveMovieSelected = (onSuccess, onError) => dispatch => {
     try {
       dispatch({
         type: REMOVE_MOVIE_SELECTED,
@@ -129,7 +129,7 @@ const useMovieActions = () => {
     }
   };
 
-  const actRemoveMovieCredits = (onSuccess, onError) => {
+  const actRemoveMovieCredits = (onSuccess, onError) => dispatch => {
     try {
       dispatch({
         type: REMOVE_MOVIE_CREDITS,
