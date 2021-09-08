@@ -9,14 +9,13 @@ const useDetailMovieScreen = () => {
 
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
-  const { movieSelectedSelector, movieGenresSelector, infoPersonSelectedSelector } = useMovieSelectors();
+  const { movieSelectedSelector, movieGenresSelector } = useMovieSelectors();
   const movie = useSelector(movieSelectedSelector);
   const genres = useSelector(movieGenresSelector);
-  const personSelected = useSelector(infoPersonSelectedSelector);
 
   const { useActions } = useApi();
   const { dispatch, useMovieActions } = useActions();
-  const { actGetMovieCredits, actRemoveMovieCredits, actRemoveInfoPerson } = useMovieActions();
+  const { actGetMovieCredits, actRemoveMovieCredits } = useMovieActions();
 
   const { useNavigation } = useGeneralHooks();
   const { goBack } = useNavigation();
@@ -44,25 +43,6 @@ const useDetailMovieScreen = () => {
     };
   };
 
-  const handleShowModalOfInfoPerson = () => personSelected?.id ? true : false;
-
-  const handleHideModalOfInfoPerson = () => dispatch(actRemoveInfoPerson());
-
-  const getProfileUrlImg = (item) => {
-    return `https://image.tmdb.org/t/p/w500${item.profile_path}`;
-  };
-
-  const getDateFormat = (date) => {
-    const dateFormat = new Date(date);
-    return `${dateFormat.getDay()}/${dateFormat.getMonth()}/${dateFormat.getFullYear()}`;
-  };
-
-  const openUrl = (url) => {
-    Linking.canOpenURL(url).then(supported => {
-      supported && Linking.openURL(url);
-    });
-  };
-
   const goToHomeScreen = () => {
     goBack();
     dispatch(actRemoveMovieCredits());
@@ -74,12 +54,6 @@ const useDetailMovieScreen = () => {
     getReleaseYear,
     getAverageAndProgress,
     goToHomeScreen,
-    personSelected,
-    handleShowModalOfInfoPerson,
-    handleHideModalOfInfoPerson,
-    getProfileUrlImg,
-    getDateFormat,
-    openUrl,
   };
 };
 

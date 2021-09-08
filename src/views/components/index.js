@@ -1,5 +1,6 @@
 import ConsoleData from "./ConsoleData";
 import HorizontalMovieSlider from "./HorizontalMovieSlider";
+import ModalProfile from "./ModalProfile/ModalProfile";
 import MovieCastSection from "./MovieCastSection/MovieCastSection";
 import MovieOverviewDetail from "./MovieOverviewDetail";
 import MoviePoster from "./MoviePoster";
@@ -17,6 +18,7 @@ const useComponents = () => {
     MoviePosterDetail,
     MovieOverviewDetail,
     MovieCastSection,
+    ModalProfile,
   };
 };
 

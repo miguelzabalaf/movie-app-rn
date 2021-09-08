@@ -59,7 +59,7 @@ const MovieCastSection = () => {
         <View style={styles.CastLoadingProfilesContainer}>
           {_.map([1, 2, 3], (idx) => (
             <View key={idx.toString()} style={styles.CastLoadingProfile}>
-              <View style={styles.CastLoadingProfileImage}></View>
+              <View style={{ ...styles.CastLoadingProfileImage, borderRadius: isIos() ? 20 : 50 }}></View>
               <View style={styles.CastLoadingProfileTitle}></View>
               <View style={styles.CastLoadingProfileSubtitle}></View>
             </View>
