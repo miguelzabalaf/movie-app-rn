@@ -37,12 +37,20 @@ const useMovieProviders = () => {
     });
   };
 
+  const getInfoPersonProvider = (personId) => {
+    return axios({
+      method: 'GET',
+      url: `/person/${personId}`
+    });
+  };
+
   return {
     getMoviesNowPlayingProvider,
     getPopularMoviesProvider,
     getUpcomingMoviesProvider,
     getMovieGenresProvider,
     getMovieCreditsProvider,
+    getInfoPersonProvider,
   };
 
 };

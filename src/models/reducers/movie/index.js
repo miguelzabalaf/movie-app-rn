@@ -18,6 +18,8 @@ const useMovieReducers = () => {
     GET_MOVIE_GENRES,
     GET_MOVIE_CREDITS,
     REMOVE_MOVIE_CREDITS,
+    GET_INFO_PERSON,
+    REMOVE_INFO_PERSON,
   } = useMovieTypes();
 
   const moviesNowPlaying = createReducer({
@@ -142,6 +144,50 @@ const useMovieReducers = () => {
     }
   });
 
+  const infoPersonSelected = createReducer({
+    adult: false,
+    also_known_as: [],
+    biography: "",
+    birthday: "",
+    deathday: null,
+    gender: null,
+    homepage: "",
+    id: null,
+    imdb_id: "",
+    known_for_department: "",
+    name: "",
+    place_of_birth: "",
+    popularity: null,
+    profile_path: ""
+  }, {
+    [GET_INFO_PERSON](state, action) {
+      const data = action.payload;
+      return {
+        ...state,
+        ...data
+      };
+    },
+    [REMOVE_INFO_PERSON](state) {
+      return {
+        ...state,
+        adult: false,
+        also_known_as: [],
+        biography: "",
+        birthday: "",
+        deathday: null,
+        gender: null,
+        homepage: "",
+        id: null,
+        imdb_id: "",
+        known_for_department: "",
+        name: "",
+        place_of_birth: "",
+        popularity: null,
+        profile_path: ""
+      };
+    }
+  });
+
 
 
   return {
@@ -151,6 +197,7 @@ const useMovieReducers = () => {
     movieSelected,
     movieGenres,
     movieSelectedCredits,
+    infoPersonSelected,
   };
 
 };

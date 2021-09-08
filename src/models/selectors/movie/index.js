@@ -62,6 +62,12 @@ const useMovieSelectors = () => {
     }
   );
 
+  // Person Selected
+  const infoPersonSelectedSelector = createSelector(
+    (state) => state.infoPersonSelected,
+    (infoPersonSelected) => infoPersonSelected
+  );
+
   return {
     moviesNowPlayingDataSelector,
     moviesNowPlayingSelector,
@@ -72,6 +78,7 @@ const useMovieSelectors = () => {
     movieSelectedSelector,
     movieGenresSelector,
     movieCreditsSelector,
+    infoPersonSelectedSelector,
   };
 
 };
