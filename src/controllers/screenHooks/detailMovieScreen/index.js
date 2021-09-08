@@ -22,6 +22,7 @@ const useDetailMovieScreen = () => {
   const { goBack } = useNavigation();
 
   useEffect(() => {
+    !movie && goBack();
     dispatch(actGetMovieCredits(movie.id));
   }, []);
 

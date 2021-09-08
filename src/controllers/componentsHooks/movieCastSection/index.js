@@ -14,16 +14,23 @@ const useMovieCastSection = () => {
   const { dispatch, useMovieActions } = useActions();
   const { actGetInfoPerson } = useMovieActions();
 
-  const [departamentSelected, setDepartamentSelected] = useState(departaments[0]);
+  const [departamentSelected, setDepartamentSelected] = useState('');
+
+  const [actualPeopleFiltered, setActualPeopleFiltered] = useState([]);
 
   useEffect(() => {
-    setInitialDepartamentCastSelected();
+    !departamentSelected && setInitialDepartamentCastSelected();
   }, [credits]);
+
+  useEffect(() => {
+    handleSetPeopleFilteredByDepartamentSelected();
+  }, [departamentSelected]);
 
   const setInitialDepartamentCastSelected = () => setDepartamentSelected(departaments[0]);
 
-  const getCreditFilteredByDepartamentSelected = () => {
-    return _.filter(credits, (credit) => credit.known_for_department === departamentSelected);
+  const handleSetPeopleFilteredByDepartamentSelected = () => {
+    const dataFiltered = _.filter(credits, (credit) => credit.known_for_department === departamentSelected);
+    setActualPeopleFiltered(dataFiltered);
   };
 
   const isDepartamentSelected = (departament) => {
@@ -63,7 +70,7 @@ const useMovieCastSection = () => {
   return {
     departaments,
     getProfileUrlImg,
-    getCreditFilteredByDepartamentSelected,
+    actualPeopleFiltered,
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,

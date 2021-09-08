@@ -29,6 +29,7 @@ const DetailMovieScreen = () => {
     MoviePosterDetail,
     MovieOverviewDetail,
     MovieCastSection,
+    HorizontalMovieSlider
   } = useComponents();
 
   const { height } = Dimensions.get('screen');
@@ -124,6 +125,8 @@ const DetailMovieScreen = () => {
           </View>
         </LinearGradient>
       </Modal>
+      {/*  */}
+      <HorizontalMovieSlider data={[]} title='Recommendations' />
     </ScrollView>
   );
 };

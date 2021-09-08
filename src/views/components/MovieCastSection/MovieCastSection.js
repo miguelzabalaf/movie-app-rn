@@ -16,12 +16,13 @@ const MovieCastSection = () => {
   const {
     departaments,
     getProfileUrlImg,
-    getCreditFilteredByDepartamentSelected,
+    actualPeopleFiltered,
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
     handleGetInfoPerson,
   } = useMovieCastSection();
+
 
   const { promiseInProgress } = usePromiseTracker();
 
@@ -86,7 +87,7 @@ const MovieCastSection = () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.CastProfilesContainer}
-          data={getCreditFilteredByDepartamentSelected()}
+          data={actualPeopleFiltered}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <RenderProfile item={item} />}
         >
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   CastProfile: {
     width: 100,
-    height: 150,
+    height: 125,
     marginLeft: 16,
     alignItems: 'center'
   },
