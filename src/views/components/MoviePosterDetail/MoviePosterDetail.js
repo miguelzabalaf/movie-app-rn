@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     right: 0,
     left: 0,
-    paddingVertical: 6
+    paddingVertical: 10,
   },
   moviePosterDetailGenresContainer: {
     backgroundColor: '#333',

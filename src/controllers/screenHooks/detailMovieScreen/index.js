@@ -1,38 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useModels from "../../../models";
-import _ from 'lodash';
 import useApi from "../../../api";
-import useControllers from "../..";
+import useGeneralHooks from "../../generalHooks";
+import _ from 'lodash';
 
 const useDetailMovieScreen = () => {
 
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
-  const { movieSelectedSelector, movieGenresSelector, movieCreditsSelector } = useMovieSelectors();
+  const { movieSelectedSelector, movieGenresSelector } = useMovieSelectors();
   const movie = useSelector(movieSelectedSelector);
   const genres = useSelector(movieGenresSelector);
-  const { departaments, credits } = useSelector(movieCreditsSelector);
 
   const { useActions } = useApi();
   const { dispatch, useMovieActions } = useActions();
   const { actGetMovieCredits, actRemoveMovieCredits } = useMovieActions();
 
-  const { useGeneralHooks } = useControllers();
   const { useNavigation } = useGeneralHooks();
   const { goBack } = useNavigation();
-
-  const [departamentSelected, setDepartamentSelected] = useState(departaments[0]);
 
   useEffect(() => {
     dispatch(actGetMovieCredits(movie.id));
   }, []);
-
-
-  useEffect(() => {
-    setInitialDepartamentCastSelected();
-  }, [credits]);
-
-  const setInitialDepartamentCastSelected = () => setDepartamentSelected(departaments[0]);
 
   const getGenresList = () => {
     return _.filter(genres, (genre) => movie.genre_ids.includes(genre.id));
@@ -52,10 +41,6 @@ const useDetailMovieScreen = () => {
     };
   };
 
-  const getCreditFilteredByDepartamentSelected = () => {
-    return _.filter(credits, (credit) => credit.known_for_department === departamentSelected);
-  };
-
   const goToHomeScreen = () => {
     goBack();
     dispatch(actRemoveMovieCredits());
@@ -66,10 +51,6 @@ const useDetailMovieScreen = () => {
     getGenresList,
     getReleaseYear,
     getAverageAndProgress,
-    departaments,
-    departamentSelected,
-    setDepartamentSelected,
-    getCreditFilteredByDepartamentSelected,
     goToHomeScreen,
   };
 };
