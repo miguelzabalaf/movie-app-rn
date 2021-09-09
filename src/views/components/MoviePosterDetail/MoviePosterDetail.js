@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, FlatList, Image, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const MoviePosterDetail = ({ genres, movie, goBack }) => {
-
-  const { height } = Dimensions.get('window');
 
   const posterUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
 
@@ -18,12 +16,10 @@ const MoviePosterDetail = ({ genres, movie, goBack }) => {
   );
 
   return (
-    <View style={{ height: height * 0.3, ...styles.moviePosterDetailContainer }}>
+    <View style={styles.moviePosterDetailContainer}>
       <Image
         style={styles.moviePosterDetailImage}
-        source={{
-          uri: posterUrl
-        }}
+        source={{ uri: posterUrl }}
       />
       <LinearGradient
         colors={['rgba(0, 0, 0, 0.1)', 'rgba(17, 17, 17, 1)']}
@@ -67,7 +63,7 @@ export default MoviePosterDetail;
 
 const styles = StyleSheet.create({
   moviePosterDetailContainer: {
-
+    height: 250,
   },
   moviePosterDetailImage: {
     flex: 1,

@@ -1,5 +1,6 @@
 import useHelpers from "../../../helpers";
 import useTypes from "../../../strings/types";
+import useInitialStates from "../../initialStates";
 
 const useMovieReducers = () => {
 
@@ -24,11 +25,17 @@ const useMovieReducers = () => {
     REMOVE_MOVIES_RECOMMENDATIONS
   } = useMovieTypes();
 
-  const moviesNowPlaying = createReducer({
-    movies: [],
-    page: null,
-    totalPages: null
-  }, {
+  // InitialStates
+  const { movieInitialStates } = useInitialStates();
+  const {
+    initialStateMovies,
+    initialStateMovieSelected,
+    initialStateGenres,
+    initialStateCredits,
+    initialStatePersonSelected,
+  } = movieInitialStates();
+
+  const moviesNowPlaying = createReducer(initialStateMovies(), {
     [GET_MOVIES_NOW_PLAYING_DATA](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -40,11 +47,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const popularMovies = createReducer({
-    movies: [],
-    page: null,
-    totalPages: null,
-  }, {
+  const popularMovies = createReducer(initialStateMovies(), {
     [GET_POPULAR_MOVIES_DATA](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -56,11 +59,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const upcomingMovies = createReducer({
-    movies: [],
-    page: null,
-    totalPages: null,
-  }, {
+  const upcomingMovies = createReducer(initialStateMovies(), {
     [GET_UPCOMING_MOVIES_DATA](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -72,22 +71,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const movieSelected = createReducer({
-    adult: false,
-    backdrop_path: '',
-    genre_ids: [],
-    id: null,
-    original_language: '',
-    original_title: '',
-    overview: '',
-    popularity: null,
-    poster_path: '',
-    release_date: '',
-    title: '',
-    video: false,
-    vote_average: null,
-    vote_count: null
-  }, {
+  const movieSelected = createReducer(initialStateMovieSelected(), {
     [SET_MOVIE_SELECTED](state, action) {
       const data = action.payload;
       return {
@@ -98,27 +82,12 @@ const useMovieReducers = () => {
     [REMOVE_MOVIE_SELECTED](state) {
       return {
         ...state,
-        adult: false,
-        backdrop_path: '',
-        genre_ids: [],
-        id: null,
-        original_language: '',
-        original_title: '',
-        overview: '',
-        popularity: null,
-        poster_path: '',
-        release_date: '',
-        title: '',
-        video: false,
-        vote_average: null,
-        vote_count: null
+        ...initialStateMovieSelected,
       };
     }
   });
 
-  const movieGenres = createReducer({
-    genres: []
-  }, {
+  const movieGenres = createReducer(initialStateGenres(), {
     [GET_MOVIE_GENRES](state, action) {
       const { genres } = action.payload;
       return {
@@ -128,9 +97,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const movieSelectedCredits = createReducer({
-    credits: []
-  }, {
+  const movieSelectedCredits = createReducer(initialStateCredits(), {
     [GET_MOVIE_CREDITS](state, action) {
       const { cast } = action.payload;
       return {
@@ -141,27 +108,12 @@ const useMovieReducers = () => {
     [REMOVE_MOVIE_CREDITS](state) {
       return {
         ...state,
-        credits: []
+        ...initialStateCredits()
       };
     }
   });
 
-  const infoPersonSelected = createReducer({
-    adult: false,
-    also_known_as: [],
-    biography: "",
-    birthday: "",
-    deathday: null,
-    gender: null,
-    homepage: "",
-    id: null,
-    imdb_id: "",
-    known_for_department: "",
-    name: "",
-    place_of_birth: "",
-    popularity: null,
-    profile_path: ""
-  }, {
+  const infoPersonSelected = createReducer(initialStatePersonSelected(), {
     [GET_INFO_PERSON](state, action) {
       const data = action.payload;
       return {
@@ -172,29 +124,12 @@ const useMovieReducers = () => {
     [REMOVE_INFO_PERSON](state) {
       return {
         ...state,
-        adult: false,
-        also_known_as: [],
-        biography: "",
-        birthday: "",
-        deathday: null,
-        gender: null,
-        homepage: "",
-        id: null,
-        imdb_id: "",
-        known_for_department: "",
-        name: "",
-        place_of_birth: "",
-        popularity: null,
-        profile_path: ""
+        ...initialStatePersonSelected()
       };
     }
   });
 
-  const moviesRecommendationsBySelectedMovie = createReducer({
-    movies: [],
-    page: null,
-    totalPages: null,
-  }, {
+  const moviesRecommendationsBySelectedMovie = createReducer(initialStateMovies(), {
     [GET_MOVIES_RECOMMENDATIONS](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -207,9 +142,7 @@ const useMovieReducers = () => {
     [REMOVE_MOVIES_RECOMMENDATIONS](state) {
       return {
         ...state,
-        movies: [],
-        page: null,
-        totalPages: null,
+        ...initialStateMovies()
       };
     }
   });
