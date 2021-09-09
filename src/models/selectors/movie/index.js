@@ -47,6 +47,37 @@ const useMovieSelectors = () => {
     (movieGenres) => movieGenres.genres
   );
 
+  // Movie Genres
+  const movieCreditsSelector = createSelector(
+    (state) => state.movieSelectedCredits,
+    (movieSelectedCredits) => {
+      const credits = movieSelectedCredits.credits;
+      const departaments = credits.reduce((allDepartaments, credit) => {
+        return Array.from(new Set([...allDepartaments, credit.known_for_department]));
+      }, []);
+      return {
+        credits,
+        departaments
+      };
+    }
+  );
+
+  // Person Selected
+  const infoPersonSelectedSelector = createSelector(
+    (state) => state.infoPersonSelected,
+    (infoPersonSelected) => infoPersonSelected
+  );
+
+  // Movies Now Playing
+  const moviesRecommendationsDataSelector = createSelector(
+    (state) => state.moviesRecommendationsBySelectedMovie,
+    (moviesRecommendationsBySelectedMovie) => moviesRecommendationsBySelectedMovie
+  );
+  const moviesRecommendationsSelector = createSelector(
+    (state) => state.moviesRecommendationsBySelectedMovie,
+    (moviesRecommendationsBySelectedMovie) => moviesRecommendationsBySelectedMovie.movies
+  );
+
   return {
     moviesNowPlayingDataSelector,
     moviesNowPlayingSelector,
@@ -56,6 +87,10 @@ const useMovieSelectors = () => {
     upcomingMoviesSelector,
     movieSelectedSelector,
     movieGenresSelector,
+    movieCreditsSelector,
+    infoPersonSelectedSelector,
+    moviesRecommendationsDataSelector,
+    moviesRecommendationsSelector,
   };
 
 };

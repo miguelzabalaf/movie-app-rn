@@ -30,11 +30,35 @@ const useMovieProviders = () => {
     });
   };
 
+  const getMovieCreditsProvider = (movieId) => {
+    return axios({
+      method: 'GET',
+      url: `/movie/${movieId}/credits`
+    });
+  };
+
+  const getInfoPersonProvider = (personId) => {
+    return axios({
+      method: 'GET',
+      url: `/person/${personId}`
+    });
+  };
+
+  const getMoviesRecommendationsProvider = (movieId) => {
+    return axios({
+      method: 'GET',
+      url: `/movie/${movieId}/recommendations`
+    });
+  };
+
   return {
     getMoviesNowPlayingProvider,
     getPopularMoviesProvider,
     getUpcomingMoviesProvider,
     getMovieGenresProvider,
+    getMovieCreditsProvider,
+    getInfoPersonProvider,
+    getMoviesRecommendationsProvider,
   };
 
 };

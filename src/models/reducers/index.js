@@ -10,6 +10,9 @@ const useReducers = () => {
     upcomingMovies,
     movieSelected,
     movieGenres,
+    movieSelectedCredits,
+    infoPersonSelected,
+    moviesRecommendationsBySelectedMovie,
   } = useMovieReducers();
 
   return combineReducers({
@@ -18,6 +21,9 @@ const useReducers = () => {
     upcomingMovies,
     movieSelected,
     movieGenres,
+    movieSelectedCredits,
+    infoPersonSelected,
+    moviesRecommendationsBySelectedMovie,
   });
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import useUtils from '../../../utils';
 
+// Utils
 const { useColors } = useUtils();
 const { color } = useColors();
 

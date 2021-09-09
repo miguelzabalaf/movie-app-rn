@@ -49,7 +49,6 @@ const HomeScreen = () => {
         }
       >
         <StatusBar
-          backgroundColor={color.background}
           translucent={true}
         />
         <View style={{ marginTop: top + 20, paddingBottom: 100 }}>

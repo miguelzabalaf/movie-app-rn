@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import useControllers from '../../../controllers';
+import useHelpers from '../../../helpers';
 
 const MoviePoster = ({ movie, width = 250, height = 400 }) => {
 
-  const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-
-  const isIos = () => Platform.OS === 'ios';
+  // Quick Functions
+  const { useQuickFunctions } = useHelpers();
+  const { getImgUrl, isIos } = useQuickFunctions();
 
   // Controllers
   const { useComponentsHooks } = useControllers();
@@ -25,7 +26,7 @@ const MoviePoster = ({ movie, width = 250, height = 400 }) => {
     >
       <View style={{ ...styles.moviePosterImageContainer }}>
         <Image
-          source={{ uri: posterUrl }}
+          source={{ uri: getImgUrl(movie.poster_path) }}
           style={{ ...styles.moviePosterImage, borderRadius: isIos() ? 18 : 5, }}
         />
       </View>
@@ -38,9 +39,9 @@ export default MoviePoster;
 const styles = StyleSheet.create({
   moviePosterContainer: {
     shadowColor: "#000",
-    marginHorizontal: 2,
-    paddingBottom: 20,
-    paddingHorizontal: 5
+    paddingBottom: 10,
+    marginLeft: 16,
+
   },
   moviePosterImageContainer: {
     shadowOffset: {

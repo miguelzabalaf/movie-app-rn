@@ -11,7 +11,14 @@ const useMovieActions = () => {
     GET_POPULAR_MOVIES_DATA,
     GET_UPCOMING_MOVIES_DATA,
     SET_MOVIE_SELECTED,
+    REMOVE_MOVIE_SELECTED,
     GET_MOVIE_GENRES,
+    GET_MOVIE_CREDITS,
+    REMOVE_MOVIE_CREDITS,
+    GET_INFO_PERSON,
+    REMOVE_INFO_PERSON,
+    GET_MOVIES_RECOMMENDATIONS,
+    REMOVE_MOVIES_RECOMMENDATIONS,
   } = useMovieTypes();
 
   // Services
@@ -20,7 +27,10 @@ const useMovieActions = () => {
     getMoviesNowPlayingService,
     getPopularMoviesService,
     getUpcomingMoviesService,
-    getMovieGenresService
+    getMovieGenresService,
+    getMovieCreditsService,
+    getPersonInfoService,
+    getMoviesRecomendationsService,
   } = useMovieServices();
 
   const actGetMogetMoviesNowPlaying = (onSuccess, onError) => async dispatch => {
@@ -88,6 +98,17 @@ const useMovieActions = () => {
     }
   };
 
+  const actRemoveMovieSelected = (onSuccess, onError) => dispatch => {
+    try {
+      dispatch({
+        type: REMOVE_MOVIE_SELECTED,
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
   const actGetMovieGenres = (onSuccess, onError) => async dispatch => {
     try {
       const resp = await getMovieGenresService();
@@ -101,13 +122,92 @@ const useMovieActions = () => {
     }
   };
 
+  const actGetMovieCredits = (movieId, onSuccess, onError) => async dispatch => {
+    try {
+      const resp = await getMovieCreditsService(movieId);
+      dispatch({
+        type: GET_MOVIE_CREDITS,
+        payload: resp.data
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError();
+    }
+  };
+
+  const actRemoveMovieCredits = (onSuccess, onError) => dispatch => {
+    try {
+      dispatch({
+        type: REMOVE_MOVIE_CREDITS,
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
+  const actGetInfoPerson = (personId, onSuccess, onError) => async dispatch => {
+    try {
+      const resp = await getPersonInfoService(personId);
+      dispatch({
+        type: GET_INFO_PERSON,
+        payload: resp.data
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
+  const actRemoveInfoPerson = (onSuccess, onError) => dispatch => {
+    try {
+      dispatch({
+        type: REMOVE_INFO_PERSON,
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
+  const actGetMoviesRecommendations = (movieId, onSuccess, onError) => async dispatch => {
+    try {
+      const resp = await getMoviesRecomendationsService(movieId);
+      dispatch({
+        type: GET_MOVIES_RECOMMENDATIONS,
+        payload: resp.data
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
+  const actRemoveMoviesRecommendations = (onSuccess, onError) => dispatch => {
+    try {
+      dispatch({
+        type: REMOVE_MOVIES_RECOMMENDATIONS,
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
   return {
     actGetMogetMoviesNowPlaying,
     actGetPopularMovies,
     actGetUpcomingMovies,
     actGetAllHomeMovieData,
     actSetMovieSelected,
+    actRemoveMovieSelected,
     actGetMovieGenres,
+    actGetMovieCredits,
+    actRemoveMovieCredits,
+    actGetInfoPerson,
+    actRemoveInfoPerson,
+    actGetMoviesRecommendations,
+    actRemoveMoviesRecommendations,
   };
 };
 

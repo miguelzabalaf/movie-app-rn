@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import useUtils from '../../../utils';
 
 const Subtitle = ({ text }) => {
-
-  const { useColors } = useUtils();
-  const { color } = useColors();
 
   return (
     <View accessible={true} style={{ ...styles.subtitleContainer }}>

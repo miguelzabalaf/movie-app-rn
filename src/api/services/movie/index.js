@@ -9,6 +9,9 @@ const useMovieServices = () => {
     getPopularMoviesProvider,
     getUpcomingMoviesProvider,
     getMovieGenresProvider,
+    getMovieCreditsProvider,
+    getInfoPersonProvider,
+    getMoviesRecommendationsProvider,
   } = useMovieProviders();
 
   const getMoviesNowPlayingService = () => {
@@ -51,11 +54,44 @@ const useMovieServices = () => {
     });
   };
 
+  const getMovieCreditsService = (movieId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await trackPromise(getMovieCreditsProvider(movieId)));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  const getPersonInfoService = (personId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await getInfoPersonProvider(personId));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  const getMoviesRecomendationsService = (movieId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await trackPromise(getMoviesRecommendationsProvider(movieId)));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     getMoviesNowPlayingService,
     getPopularMoviesService,
     getUpcomingMoviesService,
     getMovieGenresService,
+    getMovieCreditsService,
+    getPersonInfoService,
+    getMoviesRecomendationsService,
   };
 };
 
