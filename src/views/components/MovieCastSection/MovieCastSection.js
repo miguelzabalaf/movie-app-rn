@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Animated } from 'react-native';
 import useControllers from '../../../controllers';
 import Subtitle from '../Subtitle';
 import _ from 'lodash';
@@ -25,8 +25,12 @@ const MovieCastSection = () => {
     setStylesFromDepartamentOptions,
     setStylesFromDepartamentOptionsText,
     handleGetInfoPerson,
+    // Animations
+    opacityPerson,
+    fadeInPerson,
   } = useMovieCastSection();
 
+  !promiseInProgress && fadeInPerson();
 
   const { promiseInProgress } = usePromiseTracker();
 
@@ -42,14 +46,17 @@ const MovieCastSection = () => {
 
   const RenderProfile = ({ item }) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        style={styles.CastProfile}
-        onPress={() => handleGetInfoPerson(item)}>
-        <Image style={{ ...styles.CastProfileImage, borderRadius: isIos() ? 20 : 50 }} source={{ uri: getProfileUrlImg(item) }} />
-        <Text numberOfLines={1} style={styles.CastProfileTitle}>{item.original_name}</Text>
-        <Text numberOfLines={1} style={styles.CastProfileSubtitle}>{item.character}</Text>
-      </TouchableOpacity>
+      <Animated.View style={{ opacity: opacityPerson }}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.CastProfile}
+          onPress={() => handleGetInfoPerson(item)}
+          onLongPress={() => handleGetInfoPerson(item)}>
+          <Image style={{ ...styles.CastProfileImage, borderRadius: isIos() ? 20 : 50 }} source={{ uri: getProfileUrlImg(item) }} />
+          <Text numberOfLines={1} style={styles.CastProfileTitle}>{item.original_name}</Text>
+          <Text numberOfLines={1} style={styles.CastProfileSubtitle}>{item.character}</Text>
+        </TouchableOpacity>
+      </Animated.View>
     );
   };
 
