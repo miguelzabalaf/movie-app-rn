@@ -38,9 +38,9 @@ export default MoviePoster;
 const styles = StyleSheet.create({
   moviePosterContainer: {
     shadowColor: "#000",
-    marginHorizontal: 2,
-    paddingBottom: 20,
-    paddingHorizontal: 5
+    paddingBottom: 10,
+    marginLeft: 16,
+
   },
   moviePosterImageContainer: {
     shadowOffset: {

@@ -44,6 +44,13 @@ const useMovieProviders = () => {
     });
   };
 
+  const getMoviesRecommendationsProvider = (movieId) => {
+    return axios({
+      method: 'GET',
+      url: `/movie/${movieId}/recommendations`
+    });
+  };
+
   return {
     getMoviesNowPlayingProvider,
     getPopularMoviesProvider,
@@ -51,6 +58,7 @@ const useMovieProviders = () => {
     getMovieGenresProvider,
     getMovieCreditsProvider,
     getInfoPersonProvider,
+    getMoviesRecommendationsProvider,
   };
 
 };

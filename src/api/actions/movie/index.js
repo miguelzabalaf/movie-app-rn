@@ -17,6 +17,8 @@ const useMovieActions = () => {
     REMOVE_MOVIE_CREDITS,
     GET_INFO_PERSON,
     REMOVE_INFO_PERSON,
+    GET_MOVIES_RECOMMENDATIONS,
+    REMOVE_MOVIES_RECOMMENDATIONS,
   } = useMovieTypes();
 
   // Services
@@ -28,6 +30,7 @@ const useMovieActions = () => {
     getMovieGenresService,
     getMovieCreditsService,
     getPersonInfoService,
+    getMoviesRecomendationsService,
   } = useMovieServices();
 
   const actGetMogetMoviesNowPlaying = (onSuccess, onError) => async dispatch => {
@@ -167,6 +170,30 @@ const useMovieActions = () => {
     }
   };
 
+  const actGetMoviesRecommendations = (movieId, onSuccess, onError) => async dispatch => {
+    try {
+      const resp = await getMoviesRecomendationsService(movieId);
+      dispatch({
+        type: GET_MOVIES_RECOMMENDATIONS,
+        payload: resp.data
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
+  const actRemoveMoviesRecommendations = (onSuccess, onError) => dispatch => {
+    try {
+      dispatch({
+        type: REMOVE_MOVIES_RECOMMENDATIONS,
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError(error);
+    }
+  };
+
   return {
     actGetMogetMoviesNowPlaying,
     actGetPopularMovies,
@@ -179,6 +206,8 @@ const useMovieActions = () => {
     actRemoveMovieCredits,
     actGetInfoPerson,
     actRemoveInfoPerson,
+    actGetMoviesRecommendations,
+    actRemoveMoviesRecommendations,
   };
 };
 

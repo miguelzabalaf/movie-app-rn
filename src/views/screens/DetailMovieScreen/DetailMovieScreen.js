@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, StatusBar, ScrollView, View } from 'react-native';
+import { usePromiseTracker } from 'react-promise-tracker';
 import useControllers from '../../../controllers';
 import useComponents from '../../components';
+import SpinnerLoader from '../../components/SpinnerLoader';
 
 const DetailMovieScreen = () => {
 
@@ -13,6 +15,7 @@ const DetailMovieScreen = () => {
     getReleaseYear,
     getAverageAndProgress,
     goToHomeScreen,
+    moviesRecommendationa,
   } = useDetailMovieScreen();
 
   const { average, progress } = getAverageAndProgress();
@@ -25,8 +28,11 @@ const DetailMovieScreen = () => {
     ModalProfile
   } = useComponents();
 
+  const { promiseInProgress } = usePromiseTracker();
+
   return (
-    <ScrollView>
+    <ScrollView style={styles.detailMovieScreenContainer} showsVerticalScrollIndicator={false}>
+      {promiseInProgress && <SpinnerLoader />}
       <StatusBar backgroundColor='transparent' translucent={true} />
       <MoviePosterDetail
         genres={getGenresList()}
@@ -41,7 +47,8 @@ const DetailMovieScreen = () => {
       />
       <MovieCastSection />
       <ModalProfile />
-      <HorizontalMovieSlider data={[]} title='Recommendations' />
+      <HorizontalMovieSlider data={moviesRecommendationa} title='Recommendations' />
+      <View style={styles.spaceBottom}></View>
     </ScrollView>
   );
 };
@@ -49,5 +56,7 @@ const DetailMovieScreen = () => {
 export default DetailMovieScreen;
 
 const styles = StyleSheet.create({
-
+  spaceBottom: {
+    marginBottom: 100
+  }
 });

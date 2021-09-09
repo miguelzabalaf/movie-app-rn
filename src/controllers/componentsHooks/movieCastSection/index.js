@@ -24,7 +24,7 @@ const useMovieCastSection = () => {
 
   useEffect(() => {
     handleSetPeopleFilteredByDepartamentSelected();
-  }, [departamentSelected]);
+  }, [departamentSelected, credits]);
 
   const setInitialDepartamentCastSelected = () => setDepartamentSelected(departaments[0]);
 

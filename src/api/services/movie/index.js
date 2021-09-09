@@ -11,6 +11,7 @@ const useMovieServices = () => {
     getMovieGenresProvider,
     getMovieCreditsProvider,
     getInfoPersonProvider,
+    getMoviesRecommendationsProvider,
   } = useMovieProviders();
 
   const getMoviesNowPlayingService = () => {
@@ -73,6 +74,16 @@ const useMovieServices = () => {
     });
   };
 
+  const getMoviesRecomendationsService = (movieId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await trackPromise(getMoviesRecommendationsProvider(movieId)));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     getMoviesNowPlayingService,
     getPopularMoviesService,
@@ -80,6 +91,7 @@ const useMovieServices = () => {
     getMovieGenresService,
     getMovieCreditsService,
     getPersonInfoService,
+    getMoviesRecomendationsService,
   };
 };
 

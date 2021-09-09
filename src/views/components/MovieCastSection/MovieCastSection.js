@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
   CastLoadingProfile: {
     width: 100,
-    height: 150,
+    height: 125,
     marginLeft: 16,
     alignItems: 'center'
   },
