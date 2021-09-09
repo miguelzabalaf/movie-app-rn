@@ -1,12 +1,12 @@
 const movieInitialStates = () => {
 
-  const initialStateMovies = () => ({
+  const initialStateMovies = {
     movies: [],
     page: null,
     totalPages: null
-  });
+  };
 
-  const initialStateMovieSelected = () => ({
+  const initialStateMovieSelected = {
     adult: false,
     backdrop_path: '',
     genre_ids: [],
@@ -21,17 +21,17 @@ const movieInitialStates = () => {
     video: false,
     vote_average: null,
     vote_count: null
-  });
+  };
 
-  const initialStateGenres = () => ({
+  const initialStateGenres = {
     genres: []
-  });
+  };
 
-  const initialStateCredits = () => ({
+  const initialStateCredits = {
     credits: []
-  });
+  };
 
-  const initialStatePersonSelected = () => ({
+  const initialStatePersonSelected = {
     adult: false,
     also_known_as: [],
     biography: "",
@@ -46,7 +46,7 @@ const movieInitialStates = () => {
     place_of_birth: "",
     popularity: null,
     profile_path: ""
-  });
+  };
 
   return {
     initialStateMovies,

@@ -35,7 +35,7 @@ const useMovieReducers = () => {
     initialStatePersonSelected,
   } = movieInitialStates();
 
-  const moviesNowPlaying = createReducer(initialStateMovies(), {
+  const moviesNowPlaying = createReducer(initialStateMovies, {
     [GET_MOVIES_NOW_PLAYING_DATA](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -47,7 +47,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const popularMovies = createReducer(initialStateMovies(), {
+  const popularMovies = createReducer(initialStateMovies, {
     [GET_POPULAR_MOVIES_DATA](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -59,7 +59,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const upcomingMovies = createReducer(initialStateMovies(), {
+  const upcomingMovies = createReducer(initialStateMovies, {
     [GET_UPCOMING_MOVIES_DATA](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -71,7 +71,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const movieSelected = createReducer(initialStateMovieSelected(), {
+  const movieSelected = createReducer(initialStateMovieSelected, {
     [SET_MOVIE_SELECTED](state, action) {
       const data = action.payload;
       return {
@@ -87,7 +87,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const movieGenres = createReducer(initialStateGenres(), {
+  const movieGenres = createReducer(initialStateGenres, {
     [GET_MOVIE_GENRES](state, action) {
       const { genres } = action.payload;
       return {
@@ -97,7 +97,7 @@ const useMovieReducers = () => {
     }
   });
 
-  const movieSelectedCredits = createReducer(initialStateCredits(), {
+  const movieSelectedCredits = createReducer(initialStateCredits, {
     [GET_MOVIE_CREDITS](state, action) {
       const { cast } = action.payload;
       return {
@@ -108,12 +108,12 @@ const useMovieReducers = () => {
     [REMOVE_MOVIE_CREDITS](state) {
       return {
         ...state,
-        ...initialStateCredits()
+        ...initialStateCredits
       };
     }
   });
 
-  const infoPersonSelected = createReducer(initialStatePersonSelected(), {
+  const infoPersonSelected = createReducer(initialStatePersonSelected, {
     [GET_INFO_PERSON](state, action) {
       const data = action.payload;
       return {
@@ -124,12 +124,12 @@ const useMovieReducers = () => {
     [REMOVE_INFO_PERSON](state) {
       return {
         ...state,
-        ...initialStatePersonSelected()
+        ...initialStatePersonSelected
       };
     }
   });
 
-  const moviesRecommendationsBySelectedMovie = createReducer(initialStateMovies(), {
+  const moviesRecommendationsBySelectedMovie = createReducer(initialStateMovies, {
     [GET_MOVIES_RECOMMENDATIONS](state, action) {
       const { results, page, total_pages } = action.payload;
       return {
@@ -142,7 +142,7 @@ const useMovieReducers = () => {
     [REMOVE_MOVIES_RECOMMENDATIONS](state) {
       return {
         ...state,
-        ...initialStateMovies()
+        ...initialStateMovies
       };
     }
   });
