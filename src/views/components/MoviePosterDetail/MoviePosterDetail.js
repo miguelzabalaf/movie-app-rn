@@ -2,12 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import useHelpers from '../../../helpers';
 
 const MoviePosterDetail = ({ genres, movie, goBack }) => {
 
-  const posterUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
-
-  const isIos = () => Platform.OS === 'ios';
+  // Quick Functions
+  const { useQuickFunctions } = useHelpers();
+  const { getImgUrl, isIos } = useQuickFunctions();
 
   const genreItem = ({ item }) => (
     <View style={{ borderRadius: isIos() ? 15 : 5, ...styles.moviePosterDetailGenresContainer, }}>
@@ -19,7 +20,7 @@ const MoviePosterDetail = ({ genres, movie, goBack }) => {
     <View style={styles.moviePosterDetailContainer}>
       <Image
         style={styles.moviePosterDetailImage}
-        source={{ uri: posterUrl }}
+        source={{ uri: getImgUrl(movie.backdrop_path) }}
       />
       <LinearGradient
         colors={['rgba(0, 0, 0, 0.1)', 'rgba(17, 17, 17, 1)']}
@@ -44,7 +45,7 @@ const MoviePosterDetail = ({ genres, movie, goBack }) => {
         >
           <Icon
             name={isIos() ? 'chevron-back-outline' : 'arrow-back-outline'}
-            size={25}
+            size={30}
             color='#FFF'
           />
         </TouchableOpacity>
@@ -52,7 +53,7 @@ const MoviePosterDetail = ({ genres, movie, goBack }) => {
           activeOpacity={0.5}
           style={styles.moviePosterDetailHeaderButton}
           onPress={() => alert('Hola')}>
-          <Icon name={'heart-outline'} size={25} color='#FFF' />
+          <Icon name={'heart-outline'} size={30} color='#FFF' />
         </TouchableOpacity>
       </View>
     </View>

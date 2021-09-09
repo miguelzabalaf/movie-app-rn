@@ -4,12 +4,16 @@ import useControllers from '../../../controllers';
 import Subtitle from '../Subtitle';
 import _ from 'lodash';
 import { usePromiseTracker } from 'react-promise-tracker';
+import useHelpers from '../../../helpers';
 
 
 const MovieCastSection = () => {
 
-  const isIos = () => Platform.OS === 'ios';
+  // Quick Functions
+  const { useQuickFunctions } = useHelpers();
+  const { isIos } = useQuickFunctions();
 
+  // Controllers
   const { useComponentsHooks } = useControllers();
   const { useMovieCastSection } = useComponentsHooks();
 

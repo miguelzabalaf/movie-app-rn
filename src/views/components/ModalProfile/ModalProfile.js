@@ -3,18 +3,21 @@ import { View, Text, Modal, ScrollView, Platform, TouchableOpacity, StyleSheet, 
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useControllers from '../../../controllers';
+import useHelpers from '../../../helpers';
 
 const ModalProfile = () => {
 
-  const isIos = () => Platform.OS === 'ios';
+  // Quick Functions
+  const { useQuickFunctions } = useHelpers();
+  const { getImgUrl, isIos } = useQuickFunctions();
 
+  // Controllers
   const { useComponentsHooks } = useControllers();
   const { useModalProfile } = useComponentsHooks();
   const {
     personSelected,
     handleShowModalOfInfoPerson,
     handleHideModalOfInfoPerson,
-    getProfileUrlImg,
     getDateFormat,
     openUrl,
   } = useModalProfile();
@@ -47,7 +50,7 @@ const ModalProfile = () => {
             </View>
             <View style={{ ...styles.modalPersonInfoHero, height: height * 0.075 }}>
               <Image
-                source={{ uri: getProfileUrlImg(personSelected) }}
+                source={{ uri: getImgUrl(personSelected.profile_path) }}
                 style={{
                   ...styles.modalPersonInfoHeroPhoto,
                   height: height * 0.05,
@@ -114,8 +117,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   modalPersonInfoHeader: {
-    // borderWidth: 1,
-    // borderColor: 'red',
     backgroundColor: '#222',
     paddingHorizontal: 16,
     paddingVertical: 16
@@ -124,8 +125,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   modalPersonInfoHero: {
-    // borderWidth: 1,
-    // borderColor: 'white',
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center'
@@ -135,8 +134,6 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   modalPersonInfoHeroTitle: {
-    // borderColor: 'green',
-    // borderWidth: 1,
     flex: 1,
     justifyContent: 'center'
   },
@@ -152,8 +149,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   modalPersonInfoContent: {
-    // borderColor: 'red',
-    // borderWidth: 1,
     paddingHorizontal: 16,
     paddingBottom: 16
   },
@@ -161,14 +156,10 @@ const styles = StyleSheet.create({
     color: '#C3C3C3'
   },
   modalPersonInfoData: {
-    // borderWidth: 1,
-    // borderColor: 'red',
     paddingHorizontal: 16,
     flexDirection: 'row'
   },
   modalPersonInfoDataGrid: {
-    // borderWidth: 1,
-    // borderColor: 'white',
     flex: 1,
     height: 100,
     paddingHorizontal: 8,
@@ -186,8 +177,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   modalPersonInfoFooter: {
-    // borderColor: 'red',
-    // borderWidth: 1,
     paddingHorizontal: 16,
     paddingBottom: 16
   },

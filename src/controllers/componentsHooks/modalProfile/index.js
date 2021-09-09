@@ -18,10 +18,6 @@ const useModalProfile = () => {
 
   const handleHideModalOfInfoPerson = () => dispatch(actRemoveInfoPerson());
 
-  const getProfileUrlImg = (item) => {
-    return `https://image.tmdb.org/t/p/w500${item.profile_path}`;
-  };
-
   const getDateFormat = (date) => {
     const dateFormat = new Date(date);
     return `${dateFormat.getDay()}/${dateFormat.getMonth()}/${dateFormat.getFullYear()}`;
@@ -37,7 +33,6 @@ const useModalProfile = () => {
     personSelected,
     handleShowModalOfInfoPerson,
     handleHideModalOfInfoPerson,
-    getProfileUrlImg,
     getDateFormat,
     openUrl,
   };

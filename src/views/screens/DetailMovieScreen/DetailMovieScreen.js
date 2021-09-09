@@ -7,6 +7,7 @@ import SpinnerLoader from '../../components/SpinnerLoader';
 
 const DetailMovieScreen = () => {
 
+  // Controllers
   const { useScreenHooks } = useControllers();
   const { useDetailMovieScreen } = useScreenHooks();
   const {
@@ -20,6 +21,7 @@ const DetailMovieScreen = () => {
 
   const { average, progress } = getAverageAndProgress();
 
+  // Components
   const {
     MoviePosterDetail,
     MovieOverviewDetail,
