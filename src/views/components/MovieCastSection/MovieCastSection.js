@@ -8,7 +8,7 @@ import useHelpers from "../../../helpers";
 const MovieCastSection = () => {
   // Quick Functions
   const { useQuickFunctions } = useHelpers();
-  const { isIos } = useQuickFunctions();
+  const { isIos, getImgUrl } = useQuickFunctions();
 
   // Controllers
   const { useComponentsHooks } = useControllers();
@@ -16,7 +16,6 @@ const MovieCastSection = () => {
 
   const {
     departaments,
-    getProfileUrlImg,
     actualPeopleFiltered,
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
@@ -48,7 +47,7 @@ const MovieCastSection = () => {
         >
           <Image
             style={{ ...styles.CastProfileImage, borderRadius: isIos() ? 20 : 50 }}
-            source={{ uri: getProfileUrlImg(item) }}
+            source={{ uri: getImgUrl(item.profile_path) }}
           />
           <Text numberOfLines={1} style={styles.CastProfileTitle}>
             {item.original_name}

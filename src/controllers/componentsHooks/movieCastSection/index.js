@@ -36,10 +36,6 @@ const useMovieCastSection = () => {
     return departament === departamentSelected;
   };
 
-  const getProfileUrlImg = (item) => {
-    return `https://image.tmdb.org/t/p/w500${item.profile_path}`;
-  };
-
   const handleSetNewDepartamentSelected = (item) => {
     item !== departamentSelected && setDepartamentSelected(item);
     item !== departamentSelected && fadeInPerson();
@@ -78,7 +74,6 @@ const useMovieCastSection = () => {
 
   return {
     departaments,
-    getProfileUrlImg,
     actualPeopleFiltered,
     handleSetNewDepartamentSelected,
     setStylesFromDepartamentOptions,
