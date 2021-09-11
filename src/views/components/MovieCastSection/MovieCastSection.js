@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Animated } f
 import useControllers from "../../../controllers";
 import Subtitle from "../Subtitle";
 import _ from "lodash";
-import { usePromiseTracker } from "react-promise-tracker";
 import useHelpers from "../../../helpers";
 
 const MovieCastSection = () => {
@@ -25,12 +24,7 @@ const MovieCastSection = () => {
     handleGetInfoPerson,
     // Animations
     opacityPerson,
-    fadeInPerson,
   } = useMovieCastSection();
-
-  !promiseInProgress && fadeInPerson();
-
-  const { promiseInProgress } = usePromiseTracker();
 
   const RenderOptionCastHeader = ({ item }) => {
     return (

@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import useModels from "../../../models";
-import _ from 'lodash';
+import _ from "lodash";
 import useApi from "../../../api";
 import { Animated } from "react-native";
 
 const useMovieCastSection = () => {
-
   // Selectors
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
@@ -17,7 +16,7 @@ const useMovieCastSection = () => {
   const { dispatch, useMovieActions } = useActions();
   const { actGetInfoPerson } = useMovieActions();
 
-  const [departamentSelected, setDepartamentSelected] = useState('');
+  const [departamentSelected, setDepartamentSelected] = useState("");
 
   const [actualPeopleFiltered, setActualPeopleFiltered] = useState([]);
 
@@ -33,7 +32,10 @@ const useMovieCastSection = () => {
   const setInitialDepartamentCastSelected = () => setDepartamentSelected(departaments[0]);
 
   const handleSetPeopleFilteredByDepartamentSelected = () => {
-    const dataFiltered = _.filter(credits, (credit) => credit.known_for_department === departamentSelected);
+    const dataFiltered = _.filter(
+      credits,
+      (credit) => credit.known_for_department === departamentSelected
+    );
     setActualPeopleFiltered(dataFiltered);
   };
 
@@ -47,7 +49,6 @@ const useMovieCastSection = () => {
 
   const handleSetNewDepartamentSelected = (item) => {
     setDepartamentSelected(item);
-    resetOpacityPerson();
     fadeInPerson();
   };
 
@@ -57,32 +58,27 @@ const useMovieCastSection = () => {
 
   const setStylesFromDepartamentOptions = (styles, item, isIos) => {
     return {
-      ...styles[isDepartamentSelected(item)
-        ? 'CastHeaderOptionSelected'
-        : 'CastHeaderOption'],
-      borderRadius: isIos() ? 25 : 5
+      ...styles[isDepartamentSelected(item) ? "CastHeaderOptionSelected" : "CastHeaderOption"],
+      borderRadius: isIos() ? 25 : 5,
     };
   };
 
   const setStylesFromDepartamentOptionsText = (styles, item) => {
     return styles[
-      isDepartamentSelected(item)
-        ? 'CastHeaderOptionTextSelected'
-        : 'CastHeaderOptionText'
+      isDepartamentSelected(item) ? "CastHeaderOptionTextSelected" : "CastHeaderOptionText"
     ];
   };
 
   // Animations
-  const opacityPerson = useRef(new Animated.Value(0)).current;
+  const opacityPerson = useRef(new Animated.Value(1)).current;
 
   const fadeInPerson = () => {
-    Animated.timing(
-      opacityPerson, {
+    resetOpacityPerson();
+    Animated.timing(opacityPerson, {
       toValue: 1,
       duration: 500,
-      useNativeDriver: true
-    }
-    ).start();
+      useNativeDriver: true,
+    }).start();
   };
 
   const resetOpacityPerson = () => opacityPerson.setValue(0);

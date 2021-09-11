@@ -17,10 +17,9 @@ const useDetailMovieScreen = () => {
   const { useActions } = useApi();
   const { dispatch, useMovieActions } = useActions();
   const {
-    actGetMovieCredits,
     actRemoveMovieCredits,
-    actGetMoviesRecommendations,
     actRemoveMoviesRecommendations,
+    actGetCastAndRecomendationsMovieById,
   } = useMovieActions();
 
   const { useNavigation } = useGeneralHooks();
@@ -28,8 +27,7 @@ const useDetailMovieScreen = () => {
 
   useEffect(() => {
     !movie && goBack();
-    dispatch(actGetMovieCredits(movie.id));
-    dispatch(actGetMoviesRecommendations(movie.id));
+    dispatch(actGetCastAndRecomendationsMovieById(movie.id));
   }, [movie]);
 
   const getGenresList = () => {
