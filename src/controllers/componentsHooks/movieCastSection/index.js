@@ -16,20 +16,13 @@ const useMovieCastSection = () => {
   const { dispatch, useMovieActions } = useActions();
   const { actGetInfoPerson } = useMovieActions();
 
-  const [departamentSelected, setDepartamentSelected] = useState("");
+  const [departamentSelected, setDepartamentSelected] = useState(departaments[0]);
 
   const [actualPeopleFiltered, setActualPeopleFiltered] = useState([]);
 
   useEffect(() => {
-    // !departamentSelected && setInitialDepartamentCastSelected();
-    setInitialDepartamentCastSelected();
-  }, [credits]);
-
-  useEffect(() => {
     handleSetPeopleFilteredByDepartamentSelected();
-  }, [departamentSelected, credits]);
-
-  const setInitialDepartamentCastSelected = () => setDepartamentSelected(departaments[0]);
+  }, [departamentSelected]);
 
   const handleSetPeopleFilteredByDepartamentSelected = () => {
     const dataFiltered = _.filter(
@@ -48,8 +41,8 @@ const useMovieCastSection = () => {
   };
 
   const handleSetNewDepartamentSelected = (item) => {
-    setDepartamentSelected(item);
-    fadeInPerson();
+    item !== departamentSelected && setDepartamentSelected(item);
+    item !== departamentSelected && fadeInPerson();
   };
 
   const handleGetInfoPerson = (person) => {
