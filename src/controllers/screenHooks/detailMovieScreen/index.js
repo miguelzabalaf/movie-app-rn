@@ -2,21 +2,26 @@ import { useEffect } from "react";
 import useModels from "../../../models";
 import useApi from "../../../api";
 import useGeneralHooks from "../../generalHooks";
-import _ from 'lodash';
+import _ from "lodash";
 import { Linking } from "react-native";
 
 const useDetailMovieScreen = () => {
-
   const { useSelectors } = useModels();
   const { useSelector, useMovieSelectors } = useSelectors();
-  const { movieSelectedSelector, movieGenresSelector, moviesRecommendationsSelector } = useMovieSelectors();
+  const { movieSelectedSelector, movieGenresSelector, moviesRecommendationsSelector } =
+    useMovieSelectors();
   const movie = useSelector(movieSelectedSelector);
   const moviesRecommendationa = useSelector(moviesRecommendationsSelector);
   const genres = useSelector(movieGenresSelector);
 
   const { useActions } = useApi();
   const { dispatch, useMovieActions } = useActions();
-  const { actGetMovieCredits, actRemoveMovieCredits, actGetMoviesRecommendations, actRemoveMoviesRecommendations } = useMovieActions();
+  const {
+    actGetMovieCredits,
+    actRemoveMovieCredits,
+    actGetMoviesRecommendations,
+    actRemoveMoviesRecommendations,
+  } = useMovieActions();
 
   const { useNavigation } = useGeneralHooks();
   const { goBack } = useNavigation();
@@ -38,10 +43,10 @@ const useDetailMovieScreen = () => {
 
   const getAverageAndProgress = () => {
     const average = Math.round(movie.vote_average * 10);
-    const progress = average * 50 / 100;
+    const progress = (average * 50) / 100;
     return {
       average,
-      progress
+      progress,
     };
   };
 
