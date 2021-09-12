@@ -15,6 +15,7 @@ const MovieNavigation = () => {
       screenOptions={{
         headerShown: true,
         header: (props) => <Header {...props} />,
+        headerMode: "float",
       }}
     >
       <MovieNavigationStack.Screen name="HomeScreen" component={HomeScreen} />

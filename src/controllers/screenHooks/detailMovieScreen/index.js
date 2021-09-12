@@ -3,7 +3,6 @@ import useModels from "../../../models";
 import useApi from "../../../api";
 import useGeneralHooks from "../../generalHooks";
 import _ from "lodash";
-import { Linking } from "react-native";
 
 const useDetailMovieScreen = () => {
   const { useSelectors } = useModels();

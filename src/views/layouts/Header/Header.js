@@ -19,7 +19,13 @@ const Header = ({ navigation }) => {
   const { handleOnFocusInput, isIos, iamStayInScreen, searchRef } = useHeader(navigation);
 
   return (
-    <View style={{ ...styles.headerContainer, marginTop: top }}>
+    <View
+      style={{
+        ...styles.headerContainer,
+        marginTop: top,
+        opacity: iamStayInScreen("DetailMovieScreen") ? 0 : 1,
+      }}
+    >
       <View style={styles.headerMenu}>
         <TouchableOpacity
           onPress={() =>
