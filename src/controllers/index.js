@@ -1,5 +1,6 @@
 import useComponentsHooks from "./componentsHooks";
 import useGeneralHooks from "./generalHooks";
+import useLayoutHooks from "./layoutHooks";
 import useScreenHooks from "./screenHooks";
 
 const useControllers = () => {
@@ -7,6 +8,7 @@ const useControllers = () => {
     useGeneralHooks,
     useComponentsHooks,
     useScreenHooks,
+    useLayoutHooks,
   };
 };
 

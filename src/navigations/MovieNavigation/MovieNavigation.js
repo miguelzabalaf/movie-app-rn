@@ -2,31 +2,29 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import useViews from "../../views";
 
-const Root = createStackNavigator();
+const MovieNavigationStack = createStackNavigator();
 
 const MovieNavigation = () => {
   // useViews
   const { useScreens, useLayouts } = useViews();
-  const { HomeScreen, DetailMovieScreen } = useScreens();
+  const { HomeScreen, DetailMovieScreen, SearchScreen } = useScreens();
   const { Header } = useLayouts();
 
   return (
-    <Root.Navigator
+    <MovieNavigationStack.Navigator
       screenOptions={{
         headerShown: true,
+        header: (props) => <Header {...props} />,
       }}
     >
-      <Root.Screen
-        name="HomeScreen"
-        options={{ header: (props) => <Header {...props} /> }}
-        component={HomeScreen}
-      />
-      <Root.Screen
+      <MovieNavigationStack.Screen name="HomeScreen" component={HomeScreen} />
+      <MovieNavigationStack.Screen name="SearchScreen" component={SearchScreen} />
+      <MovieNavigationStack.Screen
         name="DetailMovieScreen"
         options={{ headerShown: false }}
         component={DetailMovieScreen}
       />
-    </Root.Navigator>
+    </MovieNavigationStack.Navigator>
   );
 };
 

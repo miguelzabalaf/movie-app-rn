@@ -1,32 +1,61 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, TextInput, Keyboard } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
-import useHelpers from "../../../helpers";
+import useControllers from "../../../controllers";
 import useUtils from "../../../utils";
 
 const Header = ({ navigation }) => {
   // Hooks
   const { top } = useSafeAreaInsets();
+
   // Utils
   const { useColors } = useUtils();
   const { color } = useColors();
-  // Helpers
-  const { useQuickFunctions } = useHelpers();
-  const { isIos } = useQuickFunctions();
+
+  // Hooks
+  const { useLayoutHooks } = useControllers();
+  const { useHeader } = useLayoutHooks();
+  const { handleOnFocusInput, isIos, iamStayInScreen, searchRef } = useHeader(navigation);
 
   return (
     <View style={{ ...styles.headerContainer, marginTop: top }}>
       <View style={styles.headerMenu}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} activeOpacity={0.5}>
-          <Icon name="menu-outline" size={35} color={color.primary} />
+        <TouchableOpacity
+          onPress={() =>
+            iamStayInScreen("HomeScreen") ? navigation.openDrawer() : navigation.goBack()
+          }
+          activeOpacity={0.5}
+        >
+          <Icon
+            name={iamStayInScreen("HomeScreen") ? "menu-outline" : "arrow-back-outline"}
+            size={35}
+            color={color.primary}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.headerSearchContainer}>
-        <View style={{ ...styles.headerSearch, borderRadius: isIos() ? 10 : 5 }}>
-          <Icon name="search-outline" size={20} color="#666" />
-          <Text style={styles.headerSearchPlaceholder}>Search any movie here...</Text>
-        </View>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => handleOnFocusInput()}
+          style={{ ...styles.headerSearch, borderRadius: isIos() ? 10 : 5 }}
+        >
+          <Icon name={"search-outline"} size={20} color="#666" />
+          <TextInput
+            ref={searchRef}
+            editable={iamStayInScreen("HomeScreen") ? false : true}
+            style={{
+              flex: 1,
+              paddingLeft: 16,
+              color: "#CCC",
+              display: iamStayInScreen("SearchScreen") ? "flex" : "none",
+            }}
+            placeholder="Search any movie here.."
+            placeholderTextColor="#666"
+            clearButtonMode="while-editing"
+            onFocus={() => {}}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

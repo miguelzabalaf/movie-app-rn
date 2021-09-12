@@ -1,7 +1,7 @@
 import useGeneralHooks from "../../generalHooks";
 import useApi from "../../../api";
 import useModels from "../../../models";
-import { useNavigationState } from "@react-navigation/core";
+import useHelpers from "../../../helpers";
 
 const useMoviePoster = (movie) => {
   // Api
@@ -20,20 +20,20 @@ const useMoviePoster = (movie) => {
   const { movieSelectedSelector } = useMovieSelectors();
   const movieSelected = useSelector(movieSelectedSelector);
 
-  const stateNav = useNavigationState((state) => state);
-  const actualScreen = stateNav.routeNames[stateNav.index];
-
-  const stayInDetailMovieScreen = () => actualScreen === "DetailMovieScreen";
+  // Helpers
+  const { useQuickFunctions } = useHelpers();
+  const { iamStayInScreen } = useQuickFunctions();
 
   const navigateAndSetMovieSelected = () => {
-    !stayInDetailMovieScreen() && navigateTo("DetailMovieScreen");
-    stayInDetailMovieScreen() && dispatch(actRemoveMovieCredits());
-    stayInDetailMovieScreen() && dispatch(actRemoveMoviesRecommendations());
+    !iamStayInScreen("DetailMovieScreen") && navigateTo("DetailMovieScreen");
+    iamStayInScreen("DetailMovieScreen") && dispatch(actRemoveMovieCredits());
+    iamStayInScreen("DetailMovieScreen") && dispatch(actRemoveMoviesRecommendations());
     movieSelected.id !== movie.id && dispatch(actSetMovieSelected(movie));
   };
 
   return {
     navigateAndSetMovieSelected,
+    iamStayInScreen,
   };
 };
 
