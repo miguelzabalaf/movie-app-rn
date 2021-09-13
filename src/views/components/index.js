@@ -14,6 +14,7 @@ const useComponents = () => {
   //   new Promise((resolve) => setTimeout(resolve, 500)).then(() => import("./MovieCastSection"))
   // );
   const MovieCastSection = lazy(() => import("./MovieCastSection"));
+  const MovieResultSearch = lazy(() => import("./MovieResultSearch"));
   return {
     ConsoleData,
     SpinnerLoader,
@@ -24,6 +25,7 @@ const useComponents = () => {
     MovieOverviewDetail,
     MovieCastSection,
     ModalProfile,
+    MovieResultSearch,
   };
 };
 
