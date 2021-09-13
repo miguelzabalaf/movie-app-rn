@@ -16,7 +16,8 @@ const Header = ({ navigation }) => {
   // Hooks
   const { useLayoutHooks } = useControllers();
   const { useHeader } = useLayoutHooks();
-  const { handleOnFocusInput, isIos, iamStayInScreen, searchRef } = useHeader(navigation);
+  const { handleOnFocusInput, isIos, iamStayInScreen, searchRef, setSearchValue, searchValue } =
+    useHeader(navigation);
 
   return (
     <View
@@ -49,6 +50,8 @@ const Header = ({ navigation }) => {
           <Icon name={"search-outline"} size={20} color="#666" />
           <TextInput
             ref={searchRef}
+            value={searchValue}
+            onChangeText={setSearchValue}
             editable={iamStayInScreen("HomeScreen") ? false : true}
             style={{
               flex: 1,

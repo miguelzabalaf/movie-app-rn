@@ -1,10 +1,22 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import useControllers from "../..";
 import useHelpers from "../../../helpers";
 
 const useHeader = (navigation) => {
   // Helpers
   const { useQuickFunctions } = useHelpers();
   const { isIos, iamStayInScreen } = useQuickFunctions();
+
+  // Controllers
+  const { useGeneralHooks } = useControllers();
+  const { useDebouncedValue } = useGeneralHooks();
+
+  const [searchValue, setSearchValue] = useState("");
+  const { debouncedValue } = useDebouncedValue(searchValue, 1500);
+
+  useEffect(() => {
+    // console.log(debouncedValue);
+  }, [debouncedValue]);
 
   const searchRef = useRef(null);
 
@@ -21,6 +33,9 @@ const useHeader = (navigation) => {
     isIos,
     iamStayInScreen,
     searchRef,
+    debouncedValue,
+    setSearchValue,
+    searchValue,
   };
 };
 
