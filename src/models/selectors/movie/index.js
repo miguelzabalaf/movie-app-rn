@@ -1,7 +1,6 @@
 import useHelpers from "../../../helpers";
 
 const useMovieSelectors = () => {
-
   const { useCreateSelector } = useHelpers();
   const { createSelector } = useCreateSelector();
 
@@ -57,7 +56,7 @@ const useMovieSelectors = () => {
       }, []);
       return {
         credits,
-        departaments
+        departaments,
       };
     }
   );
@@ -77,6 +76,15 @@ const useMovieSelectors = () => {
     (state) => state.moviesRecommendationsBySelectedMovie,
     (moviesRecommendationsBySelectedMovie) => moviesRecommendationsBySelectedMovie.movies
   );
+  // Search Movies By Query
+  const searchMovieResultDataSelector = createSelector(
+    (state) => state.searchMovieResult,
+    (searchMovieResult) => searchMovieResult
+  );
+  const searchMovieResultSelector = createSelector(
+    (state) => state.searchMovieResult,
+    (searchMovieResult) => searchMovieResult.movies
+  );
 
   return {
     moviesNowPlayingDataSelector,
@@ -91,8 +99,9 @@ const useMovieSelectors = () => {
     infoPersonSelectedSelector,
     moviesRecommendationsDataSelector,
     moviesRecommendationsSelector,
+    searchMovieResultDataSelector,
+    searchMovieResultSelector,
   };
-
 };
 
 export default useMovieSelectors;

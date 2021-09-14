@@ -2,7 +2,6 @@ import { trackPromise } from "react-promise-tracker";
 import useProviders from "../../providers";
 
 const useMovieServices = () => {
-
   const { useMovieProviders } = useProviders();
   const {
     getMoviesNowPlayingProvider,
@@ -12,6 +11,7 @@ const useMovieServices = () => {
     getMovieCreditsProvider,
     getInfoPersonProvider,
     getMoviesRecommendationsProvider,
+    searchMoviesByQueryProvier,
   } = useMovieProviders();
 
   const getMoviesNowPlayingService = () => {
@@ -84,6 +84,16 @@ const useMovieServices = () => {
     });
   };
 
+  const searchMoviesByQueryService = (query) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        resolve(await searchMoviesByQueryProvier(query));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     getMoviesNowPlayingService,
     getPopularMoviesService,
@@ -92,6 +102,7 @@ const useMovieServices = () => {
     getMovieCreditsService,
     getPersonInfoService,
     getMoviesRecomendationsService,
+    searchMoviesByQueryService,
   };
 };
 

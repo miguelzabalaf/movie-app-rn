@@ -1,8 +1,8 @@
-import RootNavigation from "./Root";
+import RootNavigation from "./RootNavigation";
 
 const useNavigations = () => {
   return {
-    RootNavigation
+    RootNavigation,
   };
 };
 
