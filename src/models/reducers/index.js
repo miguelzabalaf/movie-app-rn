@@ -1,9 +1,7 @@
 import { combineReducers } from "redux";
 import useMovieReducers from "./movie";
 
-
 const useReducers = () => {
-
   const {
     moviesNowPlaying,
     popularMovies,
@@ -13,6 +11,7 @@ const useReducers = () => {
     movieSelectedCredits,
     infoPersonSelected,
     moviesRecommendationsBySelectedMovie,
+    searchMovieResult,
   } = useMovieReducers();
 
   return combineReducers({
@@ -24,6 +23,7 @@ const useReducers = () => {
     movieSelectedCredits,
     infoPersonSelected,
     moviesRecommendationsBySelectedMovie,
+    searchMovieResult,
   });
 };
 

@@ -1,22 +1,32 @@
 import { useEffect, useRef, useState } from "react";
-import useControllers from "../..";
+import useApi from "../../../api";
 import useHelpers from "../../../helpers";
+import useGeneralHooks from "../../generalHooks";
 
 const useHeader = (navigation) => {
+  // Api
+  const { useActions } = useApi();
+  const { dispatch, useMovieActions } = useActions();
+  const { actSearchMoviesByQuery } = useMovieActions();
   // Helpers
   const { useQuickFunctions } = useHelpers();
   const { isIos, iamStayInScreen } = useQuickFunctions();
 
   // Controllers
-  const { useGeneralHooks } = useControllers();
   const { useDebouncedValue } = useGeneralHooks();
 
   const [searchValue, setSearchValue] = useState("");
-  const { debouncedValue } = useDebouncedValue(searchValue, 1500);
+  const { debouncedValue } = useDebouncedValue(searchValue, 750);
 
   useEffect(() => {
-    // console.log(debouncedValue);
+    searchByQuery();
   }, [debouncedValue]);
+
+  const searchByQuery = () => {
+    if (iamStayInScreen("SearchScreen")) {
+      debouncedValue && dispatch(actSearchMoviesByQuery(debouncedValue));
+    }
+  };
 
   const searchRef = useRef(null);
 

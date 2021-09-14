@@ -3,6 +3,7 @@ import useMovieCastSection from "./movieCastSection";
 import useMovieOverviewDetail from "./movieOverviewDetail";
 import useMoviePoster from "./moviePoster";
 import useMoviePosterDetail from "./moviePosterDetail";
+import useMovieResultSearch from "./movieResultSearch";
 
 const useComponentsHooks = () => {
   return {
@@ -11,6 +12,7 @@ const useComponentsHooks = () => {
     useModalProfile,
     useMoviePosterDetail,
     useMovieOverviewDetail,
+    useMovieResultSearch,
   };
 };
 

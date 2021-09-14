@@ -18,6 +18,7 @@ const useMovieActions = () => {
     REMOVE_INFO_PERSON,
     GET_MOVIES_RECOMMENDATIONS,
     REMOVE_MOVIES_RECOMMENDATIONS,
+    SEARCH_BY_QUERY,
   } = useMovieTypes();
 
   // Services
@@ -30,6 +31,7 @@ const useMovieActions = () => {
     getMovieCreditsService,
     getPersonInfoService,
     getMoviesRecomendationsService,
+    searchMoviesByQueryService,
   } = useMovieServices();
 
   const actGetMogetMoviesNowPlaying = (onSuccess, onError) => async (dispatch) => {
@@ -206,6 +208,19 @@ const useMovieActions = () => {
       }
     };
 
+  const actSearchMoviesByQuery = (query, onSuccess, onError) => async (dispatch) => {
+    try {
+      const resp = await searchMoviesByQueryService(query);
+      dispatch({
+        type: SEARCH_BY_QUERY,
+        payload: resp.data,
+      });
+      onSuccess && onSuccess();
+    } catch (error) {
+      onError && onError();
+    }
+  };
+
   return {
     actGetMogetMoviesNowPlaying,
     actGetPopularMovies,
@@ -221,6 +236,7 @@ const useMovieActions = () => {
     actGetMoviesRecommendations,
     actRemoveMoviesRecommendations,
     actGetCastAndRecomendationsMovieById,
+    actSearchMoviesByQuery,
   };
 };
 

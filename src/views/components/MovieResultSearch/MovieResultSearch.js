@@ -1,30 +1,43 @@
 import React from "react";
-import { View, Text, Image, FlatList, StyleSheet } from "react-native";
+import { View, Text, Image, FlatList, StyleSheet, TouchableNativeFeedback } from "react-native";
+import useControllers from "../../../controllers";
 import useHelpers from "../../../helpers";
 
 const MovieResultSearch = ({ movies }) => {
+  // Helpers
   const { useQuickFunctions } = useHelpers();
-  const { isIos } = useQuickFunctions();
+  const { isIos, getImgUrl } = useQuickFunctions();
+
+  // Controllers
+  const { useComponentsHooks } = useControllers();
+  const { useMovieResultSearch } = useComponentsHooks();
+  const { navigateAndSetMovieSelected } = useMovieResultSearch();
   return (
     <FlatList
-      data={movies | []}
+      data={movies}
       showsHorizontalScrollIndicator={false}
-      keyExtractor={(item, idx) => idx.toString()}
+      keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => {
         return (
-          <View style={{ ...styles.movieResultContainer, borderRadius: isIos() ? 10 : 5 }}>
-            <Image style={{ ...styles.movieResultImage, borderRadius: isIos() ? 10 : 5 }} />
-            <View style={styles.movieResultInfo}>
-              <Text numberOfLines={1} style={styles.movieResultTitle}>
-                Spiderman 3
-              </Text>
-              <Text numberOfLines={2} style={styles.movieResultText}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-              </Text>
+          <TouchableNativeFeedback
+            onPress={() => navigateAndSetMovieSelected(item)}
+            useForeground={false}
+          >
+            <View style={{ ...styles.movieResultContainer, borderRadius: isIos() ? 10 : 5 }}>
+              <Image
+                source={{ uri: getImgUrl(item.poster_path) }}
+                style={{ ...styles.movieResultImage, borderRadius: isIos() ? 10 : 5 }}
+              />
+              <View style={styles.movieResultInfo}>
+                <Text numberOfLines={1} style={styles.movieResultTitle}>
+                  {item.title}
+                </Text>
+                <Text numberOfLines={2} style={styles.movieResultText}>
+                  {item.overview}
+                </Text>
+              </View>
             </View>
-          </View>
+          </TouchableNativeFeedback>
         );
       }}
     />

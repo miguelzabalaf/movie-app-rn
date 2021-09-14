@@ -7,16 +7,25 @@ const MovieResultSearchSkeleton = () => {
   const { isIos } = useQuickFunctions();
 
   return (
-    <View style={{ ...styles.movieResultContainer, borderRadius: isIos() ? 10 : 5 }}>
-      <Image style={{ ...styles.movieResultImage, borderRadius: isIos() ? 10 : 5 }} />
-      <View style={styles.movieResultInfo}>
-        <View style={{ ...styles.movieResultTitle, borderRadius: isIos() ? 5 : 3 }}></View>
-        <View style={{ ...styles.movieResultText, borderRadius: isIos() ? 5 : 3 }}></View>
-        <View
-          style={{ ...styles.movieResultText, borderRadius: isIos() ? 5 : 3, width: 150 }}
-        ></View>
-      </View>
-    </View>
+    <>
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((movie, idx) => {
+        return (
+          <View
+            key={idx.toString()}
+            style={{ ...styles.movieResultContainer, borderRadius: isIos() ? 10 : 5 }}
+          >
+            <Image style={{ ...styles.movieResultImage, borderRadius: isIos() ? 10 : 5 }} />
+            <View style={styles.movieResultInfo}>
+              <View style={{ ...styles.movieResultTitle, borderRadius: isIos() ? 5 : 3 }}></View>
+              <View style={{ ...styles.movieResultText, borderRadius: isIos() ? 5 : 3 }}></View>
+              <View
+                style={{ ...styles.movieResultText, borderRadius: isIos() ? 5 : 3, width: 150 }}
+              ></View>
+            </View>
+          </View>
+        );
+      })}
+    </>
   );
 };
 

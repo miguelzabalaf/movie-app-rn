@@ -1,53 +1,62 @@
 import axios from "axios";
 
 const useMovieProviders = () => {
-
   const getMoviesNowPlayingProvider = () => {
     return axios({
-      method: 'GET',
-      url: '/movie/now_playing'
+      method: "GET",
+      url: "/movie/now_playing",
     });
   };
 
   const getPopularMoviesProvider = () => {
     return axios({
-      method: 'GET',
-      url: '/movie/popular'
+      method: "GET",
+      url: "/movie/popular",
     });
   };
 
   const getUpcomingMoviesProvider = () => {
     return axios({
-      method: 'GET',
-      url: '/movie/upcoming'
+      method: "GET",
+      url: "/movie/upcoming",
     });
   };
 
   const getMovieGenresProvider = () => {
     return axios({
-      method: 'GET',
-      url: '/genre/movie/list'
+      method: "GET",
+      url: "/genre/movie/list",
     });
   };
 
   const getMovieCreditsProvider = (movieId) => {
     return axios({
-      method: 'GET',
-      url: `/movie/${movieId}/credits`
+      method: "GET",
+      url: `/movie/${movieId}/credits`,
     });
   };
 
   const getInfoPersonProvider = (personId) => {
     return axios({
-      method: 'GET',
-      url: `/person/${personId}`
+      method: "GET",
+      url: `/person/${personId}`,
     });
   };
 
   const getMoviesRecommendationsProvider = (movieId) => {
     return axios({
-      method: 'GET',
-      url: `/movie/${movieId}/recommendations`
+      method: "GET",
+      url: `/movie/${movieId}/recommendations`,
+    });
+  };
+
+  const searchMoviesByQueryProvier = (query) => {
+    return axios({
+      method: "GET",
+      url: `/search/movie`,
+      params: {
+        query,
+      },
     });
   };
 
@@ -59,8 +68,8 @@ const useMovieProviders = () => {
     getMovieCreditsProvider,
     getInfoPersonProvider,
     getMoviesRecommendationsProvider,
+    searchMoviesByQueryProvier,
   };
-
 };
 
 export default useMovieProviders;
