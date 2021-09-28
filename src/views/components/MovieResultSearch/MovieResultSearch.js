@@ -12,7 +12,7 @@ const MovieResultSearch = ({ movies }) => {
   const { useComponentsHooks } = useControllers();
   const { useMovieResultSearch } = useComponentsHooks();
   const { navigateAndSetMovieSelected } = useMovieResultSearch();
-  return (
+  return movies.length > 0 ? (
     <FlatList
       data={movies}
       showsHorizontalScrollIndicator={false}
@@ -41,6 +41,10 @@ const MovieResultSearch = ({ movies }) => {
         );
       }}
     />
+  ) : (
+    <View style={styles.notMoviesFound}>
+      <Text style={styles.notMoviesFoundText}>Not movies found.</Text>
+    </View>
   );
 };
 
@@ -74,5 +78,14 @@ const styles = StyleSheet.create({
   movieResultText: {
     marginBottom: 8,
     color: "#CCC",
+  },
+  notMoviesFound: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  notMoviesFoundText: {
+    color: "#C6C6C6",
+    fontSize: 18,
   },
 });
